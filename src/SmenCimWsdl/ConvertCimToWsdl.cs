@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmenCimWsdl
 {
@@ -22,12 +19,12 @@ namespace SmenCimWsdl
 
         public string BeautifyVerb(string verb)
         {
-            if (!_verbs.Contains(UppercaseFirst(verb)))
+            if (!_verbs.Contains(verb.UppercaseFirst()))
             {
                 return "";
             }
             
-            return _verbs.Where(_ => _ == UppercaseFirst(verb)).Single();
+            return _verbs.Where(_ => _ == verb.UppercaseFirst()).Single();
         }
 
         public string GetNoun(string nounFile)
@@ -70,7 +67,7 @@ namespace SmenCimWsdl
 
             string data = "";
 
-            data = ReadDataFromFile(nounFile);
+            data = nounFile.ReadDataFromFile();
 
             data = data.Replace("type=\"\"", "");
 
@@ -78,15 +75,15 @@ namespace SmenCimWsdl
 
             //return Path.Combine(outXsdPath, nounFile);
 
-            return WriteDataToDisk(data, Path.Combine(outXsdPath, nounFile));
+            return data.WriteDataToDisk(Path.Combine(outXsdPath, nounFile));
         }
         public string CreateArtifacts_Message(string outPath)
         {
             try
             {
-                var data = ReadDataFromEmbeddedResource("Message.xsd");
+                var data = "Message.xsd".ReadDataFromEmbeddedResource();
                 
-                return WriteDataToDisk(data, Path.Combine(outPath, "Message.xsd"));
+                return data.WriteDataToDisk(Path.Combine(outPath, "Message.xsd"));
             }
             catch (Exception e1)
             {
@@ -103,17 +100,17 @@ namespace SmenCimWsdl
 
                 if (verb == "Get" || verb == "Reply")
                 {
-                    data = ReadDataFromEmbeddedResource("GetReplyMessage.xsd");
+                    data = "GetReplyMessage.xsd".ReadDataFromEmbeddedResource();
                     nameVerb = "Get";
                 }
                 else if (verb == "Send" || verb == "Receive" || verb == "Request" || verb == "Execute")
-                    data = ReadDataFromEmbeddedResource("SendReceiveReplyRequestExecuteMessage.xsd");
+                    data = "SendReceiveReplyRequestExecuteMessage.xsd".ReadDataFromEmbeddedResource();
                 else
                     throw new Exception($"Wrong verb '{verb}'");
                 
                 data = data.Replace(@"{Information_Object_Name}#", noun).Replace(@"{Information_Object_Name}", noun);
 
-                return WriteDataToDisk(data, Path.Combine(outPath, $"{nameVerb}{noun}Message.xsd"));
+                return data.WriteDataToDisk(Path.Combine(outPath, $"{nameVerb}{noun}Message.xsd"));
             }
             catch (Exception e1)
             {
@@ -129,17 +126,17 @@ namespace SmenCimWsdl
                 string data = "";
 
                 if (verb == "Get")
-                    data = ReadDataFromEmbeddedResource("GetWSDL.wsdl");
+                    data = "GetWSDL.wsdl".ReadDataFromEmbeddedResource();
                 else if (verb == "Request" || verb == "Execute")
-                    data = ReadDataFromEmbeddedResource("RequestExecuteWSDL.wsdl").Replace(@"{Request | Execute}", verb);
+                    data = "RequestExecuteWSDL.wsdl".ReadDataFromEmbeddedResource().Replace(@"{Request | Execute}", verb);
                 else if (verb == "Send" || verb == "Receive" || verb == "Reply")
-                    data = ReadDataFromEmbeddedResource("SendReceiveReplyWSDL.wsdl").Replace(@"{Send | Receive | Reply}", verb);
+                    data = "SendReceiveReplyWSDL.wsdl".ReadDataFromEmbeddedResource().Replace(@"{Send | Receive | Reply}", verb);
                 else
                     throw new Exception($"Wrong verb '{verb}'");
 
                 data = data.Replace(@"{Information_Object_Name}#", noun).Replace(@"{Information_Object_Name}", noun);
 
-                return WriteDataToDisk(data, Path.Combine(outPath, $"{verb}{noun}Message.wsdl"));
+                return data.WriteDataToDisk(Path.Combine(outPath, $"{verb}{noun}Message.wsdl"));
             }
             catch (Exception e1)
             {
@@ -147,72 +144,6 @@ namespace SmenCimWsdl
             }
 
             return "";
-        }
-
-        private string ReadDataFromFile(string filePath)
-        {
-            StreamReader _textStreamReader;
-
-            try
-            {
-                _textStreamReader = new StreamReader(filePath);
-
-                var data = _textStreamReader.ReadToEnd();
-                
-                return data;
-            }
-            catch (Exception e1)
-            {
-                Console.WriteLine($" --> Error accessing file! Message: {e1.Message}");
-
-                throw new Exception("ReadDataFromFile exception...");
-            }
-        }
-        private string ReadDataFromEmbeddedResource(string resource)
-        {
-            Assembly _assembly;
-            StreamReader _textStreamReader;
-
-            try
-            {
-                _assembly = Assembly.GetExecutingAssembly();
-                _textStreamReader = new StreamReader(_assembly.GetManifestResourceStream($"SmenCimWsdl.Resources.{resource}"));
-
-                var data = _textStreamReader.ReadToEnd();
-
-                return data;
-            }
-            catch (Exception e1)
-            {
-                Console.WriteLine($" --> Error accessing resources! Message: {e1.Message}");
-
-                throw new Exception("ReadDataFromEmbeddedResource exception...");
-            }
-        }
-        private string WriteDataToDisk(string data, string filePath)
-        {
-            try
-            {
-                var _textStreamWriter = new StreamWriter(filePath);
-                _textStreamWriter.Write(data);
-                _textStreamWriter.Flush();
-
-                return filePath;
-            }
-            catch (Exception e1)
-            {
-                Console.WriteLine($" --> Error witing data to disk! Message: {e1.Message}");
-
-                throw new Exception("WriteDataToDisk exception...");
-            }
-        }
-
-        private string UppercaseFirst(string str)
-        {
-            if (string.IsNullOrEmpty(str))
-                return string.Empty;
-
-            return char.ToUpper(str[0]) + str.Substring(1).ToLower();
         }
     }
 }

@@ -40,19 +40,19 @@ namespace SmenCimWsdl
                     Console.WriteLine();
                     Console.WriteLine();
 
-                    Console.Write(" 1. Create message...");
+                    Console.Write(" 1. Creating message...");
                     Console.Write(" Created! {0}", convert.CreateArtifacts_Message(outXsdPath));
                     Console.WriteLine();
 
-                    Console.Write(" 2. Create profie...");
+                    Console.Write(" 2. Creating profie...");
                     Console.Write(" Created! {0}", convert.CreateArtifacts_Profile(options.NounFile, outXsdPath));
                     Console.WriteLine();
 
-                    Console.Write(" 3. Create noun file...");
+                    Console.Write(" 3. Creating noun file...");
                     Console.Write(" Created! {0}", convert.CreateArtifacts_NounMessage(wsdlVerb, noun, outXsdPath));
                     Console.WriteLine();
 
-                    Console.Write(" 4. Create WSDL...");
+                    Console.Write(" 4. Creating WSDL...");
                     Console.Write(" Created! {0}", convert.CreateArtifacts_Wsdl(wsdlVerb, noun, outPath));
                     Console.WriteLine();
 
@@ -67,24 +67,10 @@ namespace SmenCimWsdl
                     Console.WriteLine($"Error! Message: {e1.Message}");
                     Console.ResetColor();
                 }
-                
-                //// consume Options instance properties
-                //if (options.Verbose)
-                //{
-                //    Console.WriteLine(options.InputFile);
-                //    Console.WriteLine(options.MaximumLength);
-                //}
-                //else
-                //    Console.WriteLine("working ...");
 
                 Console.WriteLine();
                 Console.Write("Press any key to continue!");
                 Console.ReadKey();
-            }
-            else
-            {
-                // Display the default usage information
-                //Console.WriteLine(options.GetUsage());
             }
         }
     }
