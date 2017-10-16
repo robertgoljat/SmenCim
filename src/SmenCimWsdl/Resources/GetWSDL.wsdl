@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<wsdl:definitions 
+  name="Get{Information_Object_Name}" 
+  targetNamespace="http://iec.ch/TC57/2011/Get{Information_Object_Name}" 
+  xmlns:tns="http://iec.ch/TC57/2011/Get{Information_Object_Name}" 
+  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" 
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" 
+  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+  xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" 
+  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" 
+  xmlns:infoMessage="http://iec.ch/TC57/2011/Get{Information_Object_Name}Message">
+  <wsdl:types>
+    <xs:schema targetNamespace="http://iec.ch/TC57/2011/Get{Information_Object_Name}"  elementFormDefault="qualified">
+      <xs:import namespace="http://iec.ch/TC57/2011/Get{Information_Object_Name}Message" schemaLocation="xsd/Get{Information_Object_Name}Message.xsd"/>  
+    </xs:schema> 
+  </wsdl:types> 
+  <!-- Message Definitions --> 
+  <wsdl:message name="Get{Information_Object_Name}RequestMessage">
+    <wsdl:part name="Get{Information_Object_Name}RequestMessage" element="infoMessage:Get{Information_Object_Name}"/>
+  </wsdl:message>  
+  <wsdl:message name="ResponseMessage">
+    <wsdl:part name="ResponseMessage" element="infoMessage:{Information_Object_Name}ResponseMessage"/>
+  </wsdl:message>  
+  <wsdl:message name="FaultMessage">
+    <wsdl:part name="FaultMessage" element="infoMessage:{Information_Object_Name}FaultMessage"/>
+  </wsdl:message>  
+  <!-- Port Definitions -->
+  <wsdl:portType name="Get{Information_Object_Name}_Port"> 
+    <wsdl:operation name="Get{Information_Object_Name}"> 
+      <wsdl:input name="Get{Information_Object_Name}Request" message="tns:Get{Information_Object_Name}RequestMessage"/> 
+      <wsdl:output name="Get{Information_Object_Name}Response" message="tns:ResponseMessage"/> 
+      <wsdl:fault name="Get{Information_Object_Name}Fault" message="tns:FaultMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>  
+  <wsdl:binding name="Get{Information_Object_Name}_Binding" type="tns:Get{Information_Object_Name}_Port">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/> 
+    <wsdl:operation name="Get{Information_Object_Name}">
+      <soap:operation soapAction="http://iec.ch/TC57/2011/Get{Information_Object_Name}/Get{Information_Object_Name}" style="document"/> 
+      <wsdl:input name="Get{Information_Object_Name}Request">  
+        <soap:body use="literal"/> 
+      </wsdl:input> 
+      <wsdl:output name="Get{Information_Object_Name}Response">  
+        <soap:body use="literal"/> 
+      </wsdl:output> 
+      <wsdl:fault name="Get{Information_Object_Name}Fault">  
+        <soap:fault name="Get{Information_Object_Name}Fault" use="literal"/> 
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>  
+  <wsdl:service name="Get{Information_Object_Name}">
+    <wsdl:port name="Get{Information_Object_Name}_Port" binding="tns:Get{Information_Object_Name}_Binding"> 
+      <soap:address location="http://iec.ch/TC57/2011/Get{Information_Object_Name}"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions> 

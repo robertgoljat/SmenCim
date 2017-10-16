@@ -1,0 +1,16 @@
+
+cd C:\GitHub\SmenCimWsdl\SmenCimWsdl\bin\Debug
+
+/* Generate WSDL - Assets */
+CimToWsdl.exe -n Assets.xsd -v Request -o Assets
+CimToWsdl.exe -n Assets.xsd -v Get -o Assets
+
+/* Generate WSDL - WorkTasks */
+CimToWsdl.exe -n WorkTasks-v Request -o WorkTasks
+
+
+/* Generate cs interface - Assets */
+SvcUtil.exe /l:C# /o:IAssets.cs Assets\xsd\Assets.xsd Assets\xsd\Message.xsd Assets\xsd\AssetsMessage.xsd Assets\RequestAssetsMessage.wsdl
+
+/* Generate cs interface - WorkTasks*/
+SvcUtil.exe /l:C# /o:IWrk.cs WorkTasks\xsd\WorkTasks.xsd WorkTasks\xsd\Message.xsd WorkTasks\xsd\WorkTasksMessage.xsd WorkTasks\xsd\RequestWorkTasksMessage.wsdl

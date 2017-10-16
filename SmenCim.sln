@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3809DC50-3C10-4622-BC34-D1B14790D9C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C6D0DAB2-B069-452C-9826-C0FF3344A9BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmenCimWsdl", "src\SmenCimWsdl\SmenCimWsdl.csproj", "{F10D1560-3A2A-4A68-B622-65C95164E2D2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F10D1560-3A2A-4A68-B622-65C95164E2D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F10D1560-3A2A-4A68-B622-65C95164E2D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F10D1560-3A2A-4A68-B622-65C95164E2D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F10D1560-3A2A-4A68-B622-65C95164E2D2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F10D1560-3A2A-4A68-B622-65C95164E2D2} = {3809DC50-3C10-4622-BC34-D1B14790D9C9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F0B114B1-7F7B-4CA4-BAB5-4DB7F1E88E2F}
+	EndGlobalSection
+EndGlobal
