@@ -20,7 +20,7 @@ namespace SmenCimWsdl
             {
                 Console.WriteLine($" --> Error accessing file! Message: {e1.Message}");
 
-                throw new Exception("ReadDataFromFile exception...");
+                throw new Exception($"ReadDataFromFile exception... {e1.Message}");
             }
         }
         public static string ReadDataFromEmbeddedResource(this string resource)
@@ -59,7 +59,7 @@ namespace SmenCimWsdl
             {
                 Console.WriteLine($" --> Error witing data to disk! Message: {e1.Message}");
 
-                throw new Exception("WriteDataToDisk exception...");
+                throw new Exception($"WriteDataToDisk exception... {e1.Message}");
             }
         }
 

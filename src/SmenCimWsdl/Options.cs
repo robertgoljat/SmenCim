@@ -19,6 +19,9 @@ namespace SmenCimWsdl
         [Option('o', "out", HelpText = "Out file path", Required = false)]
         public string OutPath { get; set; }
 
+        [Option('c', "continue", HelpText = "Skip 'Press any key to continue!'", Required = false, DefaultValue = false)]
+        public bool Continue { get; set; }
+
         //[Option(DefaultValue = 0, HelpText ="", Required = true)]
         //public long Offset { get; set; }
 

@@ -20,10 +20,15 @@ namespace SmenCimWsdl
 
                 if (wsdlVerb == "")
                 {
-                    Console.WriteLine($"Verb '{options.WsdlVerb}' is not correct!");
+                    //Console.WriteLine($"Verb '{options.WsdlVerb}' is not correct!");
+                    LogError($"Verb '{options.WsdlVerb}' is not correct!", true);
                     Console.WriteLine();
-                    Console.Write("Press any key to continue!");
-                    Console.ReadKey();
+
+                    if (!options.Continue)
+                    {
+                        Console.Write("Press any key to continue!");
+                        Console.ReadKey();
+                    }
 
                     return;
                 }
@@ -63,15 +68,28 @@ namespace SmenCimWsdl
                 }
                 catch (Exception e1)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"Error! Message: {e1.Message}");
-                    Console.ResetColor();
+                    //Console.ForegroundColor = ConsoleColor.Red;
+                    //Console.WriteLine($"Error! Message: {e1.Message}");
+                    //Console.ResetColor();
+
+                    LogError(e1.Message);
                 }
 
                 Console.WriteLine();
-                Console.Write("Press any key to continue!");
-                Console.ReadKey();
+
+                if (!options.Continue)
+                {
+                    Console.Write("Press any key to continue!");
+                    Console.ReadKey();
+                }
             }
+        }
+
+        static void LogError(string Message, bool OverridePretext = false)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(OverridePretext ? $"{Message}" : $"Error! Message: {Message}");
+            Console.ResetColor();
         }
     }
 }

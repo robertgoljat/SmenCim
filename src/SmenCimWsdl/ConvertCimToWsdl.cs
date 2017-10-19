@@ -66,7 +66,7 @@ namespace SmenCimWsdl
                 throw new Exception($"Directory '{outXsdPath}' doesn't exist!");
 
             string data = "";
-
+            
             data = nounFile.ReadDataFromFile();
 
             data = data.Replace("type=\"\"", "");
@@ -75,7 +75,7 @@ namespace SmenCimWsdl
 
             //return Path.Combine(outXsdPath, nounFile);
 
-            return data.WriteDataToDisk(Path.Combine(outXsdPath, nounFile));
+            return data.WriteDataToDisk(Path.Combine(outXsdPath, Path.GetFileName(nounFile)));
         }
         public string CreateArtifacts_Message(string outPath)
         {
