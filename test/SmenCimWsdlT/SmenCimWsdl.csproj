@@ -51,6 +51,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ConvertCimToWsdlT.cs" />
     <Compile Include="HelperT.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

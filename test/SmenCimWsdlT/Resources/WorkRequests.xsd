@@ -1,0 +1,698 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="http://iec.ch/TC57/2011/WorkRequests" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:el="http://iec.ch/TC57/2011/WorkRequests" xmlns="http://iec.ch/TC57/2011/WorkRequests">
+  <xs:annotation>
+    <xs:documentation>The IEC 61968 subpackages of the CIM are developed, standardized and maintained by IEC TC57 Working Group 14: interfaces for distribution management (WG14).
+Currently, normative parts of the model support the needs of information exchange defined in IEC 61968-3, IEC 61968-4, IEC 61968-9 and in IEC 61968-13.</xs:documentation>
+  </xs:annotation>
+  <xs:annotation>
+    <xs:documentation>Top package for IEC 61970.</xs:documentation>
+  </xs:annotation>
+  <xs:annotation>
+    <xs:documentation>This package contains the core information classes that support asset management applications that deal with the physical and lifecycle aspects of various network resources (as opposed to power system resource models defined in IEC61970::Wires package, which support network applications).</xs:documentation>
+  </xs:annotation>
+  <xs:element name="Asset" type="el:Asset" />
+  <xs:complexType name="Asset">
+    <xs:annotation>
+      <xs:documentation>Tangible resource of the utility, including power system equipment, various end devices, cabinets, buildings, etc. For electrical network equipment, the role of the asset is defined through PowerSystemResource and its subclasses, defined mainly in the Wires model (refer to IEC61970-301 and model package IEC61970::Wires). Asset description places emphasis on the physical characteristics of the equipment fulfilling that role.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="el:IdentifiedObject">
+        <xs:sequence>
+          <xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Utility-specific classification of Asset and its subtypes, according to their corporate standards, practices, and existing IT systems (e.g., for management of assets, maintenance, work, outage, customers, etc.).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="utcNumber" type="xs:string" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Uniquely tracked commodity (UTC) number.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Location" type="el:Location" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Location of this asset.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>This package contains the information classes that support distribution management in general.</xs:documentation>
+  </xs:annotation>
+  <xs:element name="Appointment" type="el:Appointment" />
+  <xs:complexType name="Appointment">
+    <xs:annotation>
+      <xs:documentation>Meeting time and location.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="callAhead" type="el:Boolean" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>True if requested to call customer when someone is about to arrive at their premises.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="meetingInterval" type="el:DateTimeInterval" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Date and time reserved for appointment.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Crew" type="el:Crew" />
+  <xs:complexType name="Crew">
+    <xs:annotation>
+      <xs:documentation>Group of people with specific skills, tools, and vehicles.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="el:IdentifiedObject">
+        <xs:sequence>
+          <xs:element name="status" type="el:Status" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Status of this crew.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Document" type="el:Document" />
+  <xs:complexType name="Document">
+    <xs:annotation>
+      <xs:documentation>Parent class for different groupings of information collected and managed as a part of a business process. It will frequently contain references to other objects, such as assets, people and power system resources.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="authorName" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Name of the author of this document.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="comment" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Free text comment.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="createdDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Date and time that this document was created.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="lastModifiedDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Date and time this document was last modified. Documents may potentially be modified many times during their lifetime.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="revisionNumber" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Revision number for this document.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="status" type="el:Status" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Status of subject matter (e.g., Agreement, Work) this document represents. For status of the document itself, use 'docStatus' attribute.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="subject" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Document subject.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="title" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Document title.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Utility-specific classification of this document, according to its corporate standards, practices, and existing IT systems (e.g., for management of assets, maintenance, work, outage, customers, etc.).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ElectronicAddress" type="el:ElectronicAddress" />
+  <xs:complexType name="ElectronicAddress">
+    <xs:annotation>
+      <xs:documentation>Electronic address information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="email1" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Primary email address.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Location" type="el:Location" />
+  <xs:complexType name="Location">
+    <xs:annotation>
+      <xs:documentation>The place, scene, or point of something where someone or something has been, is, and/or will be at a given moment in time. It can be defined with one or more postition points (coordinates) in a given coordinate system.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="el:IdentifiedObject">
+        <xs:sequence>
+          <xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Classification by utility's corporate standards and practices, relative to the location itself (e.g., geographical, functional accounting, etc., not a given property that happens to exist at that location).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Organisation" type="el:Organisation" />
+  <xs:complexType name="Organisation">
+    <xs:annotation>
+      <xs:documentation>Organisation that might have roles as utility, contractor, supplier, manufacturer, customer, etc.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="el:IdentifiedObject">
+        <xs:sequence>
+          <xs:element name="electronicAddress" type="el:ElectronicAddress" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Electronic address.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="phone1" type="el:TelephoneNumber" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Phone number.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="phone2" type="el:TelephoneNumber" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Additional phone number.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="postalAddress" type="el:PostalAddress" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Postal address, potentially different than 'streetAddress' (e.g., another city).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="streetAddress" type="el:StreetAddress" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Street address.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Person" type="el:Person" />
+  <xs:complexType name="Person">
+    <xs:annotation>
+      <xs:documentation>General purpose information for name and other information to contact people.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="el:IdentifiedObject">
+        <xs:sequence>
+          <xs:element name="electronicAddress" type="el:ElectronicAddress" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Electronic address.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="firstName" type="xs:string" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Person's first name.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="landlinePhone" type="el:TelephoneNumber" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Landline phone number.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="lastName" type="xs:string" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation> Person's last (family, sir) name.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="mName" type="xs:string" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation> Middle name(s) or initial(s).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="mobilePhone" type="el:TelephoneNumber" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Mobile phone number.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Roles" type="el:PersonRole" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>All roles of this person.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PersonRole" type="el:PersonRole" />
+  <xs:complexType name="PersonRole">
+    <xs:sequence>
+      <xs:element name="Appointments" type="el:Appointment" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>All appointments for this person.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PostalAddress" type="el:PostalAddress" />
+  <xs:complexType name="PostalAddress">
+    <xs:annotation>
+      <xs:documentation>General purpose postal address information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="postalCode" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Postal code for the address.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="townDetail" type="el:TownDetail" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Town detail.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Status" type="el:Status" />
+  <xs:complexType name="Status">
+    <xs:annotation>
+      <xs:documentation>Current status information relevant to an entity.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="dateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Date and time for which status 'value' applies.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="remark" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Pertinent information regarding the current 'value', as free form text.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="value" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Status value at 'dateTime'; prior status changes may have been kept in instances of activity records associated with the object to which this status applies.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StreetAddress" type="el:StreetAddress" />
+  <xs:complexType name="StreetAddress">
+    <xs:annotation>
+      <xs:documentation>General purpose street address information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="streetDetail" type="el:StreetDetail" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Street detail.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="townDetail" type="el:TownDetail" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Town detail.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StreetDetail" type="el:StreetDetail" />
+  <xs:complexType name="StreetDetail">
+    <xs:annotation>
+      <xs:documentation>Street details, in the context of address.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="code" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>(if applicable) Utilities often make use of external reference systems, such as those of the town-planner's department or surveyor general's mapping system, that allocate global reference codes to streets.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Name of the street.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="number" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Designator of the specific location on the street.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TelephoneNumber" type="el:TelephoneNumber" />
+  <xs:complexType name="TelephoneNumber">
+    <xs:annotation>
+      <xs:documentation>Telephone number.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="areaCode" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Area or region code.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="cityCode" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>(if applicable) City code.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="countryCode" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Country code.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="extension" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>(if applicable) Extension for this telephone number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="localNumber" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Main (local) part of this telephone number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TimeSchedule" type="el:TimeSchedule" />
+  <xs:complexType name="TimeSchedule">
+    <xs:annotation>
+      <xs:documentation>Description of anything that changes through time. Time schedule is used to perform a single-valued function of time. Use inherited 'type' attribute to give additional information on this schedule, such as: periodic (hourly, daily, weekly, monthly, etc.), day of the month, by date, calendar (specific times and dates).</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="scheduleInterval" type="el:DateTimeInterval" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Schedule date and time interval.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TownDetail" type="el:TownDetail" />
+  <xs:complexType name="TownDetail">
+    <xs:annotation>
+      <xs:documentation>Town details, in the context of address.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="country" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Name of the country.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Town name.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="section" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Town section. For example, it is common for there to be 36 sections per township.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>This package contains the core information classes that support work management and network extension planning applications.</xs:documentation>
+  </xs:annotation>
+  <xs:element name="BaseWork" type="el:BaseWork" />
+  <xs:complexType name="BaseWork">
+    <xs:annotation>
+      <xs:documentation>Common representation for work and work tasks.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="WorkLocation" type="el:WorkLocation" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Location for this work/task.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TimeSchedules" type="el:WorkTimeSchedule" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>All time schedules for this work or work task.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ELWork" type="el:ELWork" />
+  <xs:complexType name="ELWork">
+    <xs:sequence>
+      <xs:element name="authorName" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Name of the author of this document.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="comment" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Free text comment.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="createdDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Date and time that this document was created.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="lastModifiedDateTime" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Date and time this document was last modified. Documents may potentially be modified many times during their lifetime.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="revisionNumber" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Revision number for this document.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="status" type="el:Status" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Status of subject matter (e.g., Agreement, Work) this document represents. For status of the document itself, use 'docStatus' attribute.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="subject" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Document subject.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="title" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Document title.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Utility-specific classification of this document, according to its corporate standards, practices, and existing IT systems (e.g., for management of assets, maintenance, work, outage, customers, etc.).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The description is a free human readable text describing or naming the object. It may be non unique and may not correlate to a naming hierarchy.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="mRID" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Master resource identifier issued by a model authority. The mRID is globally unique within an exchange context. Global uniqueness is easily achieved by using a UUID,  as specified in RFC 4122, for the mRID.  The use of UUID is strongly recommended.
+For CIMXML data files in RDF syntax conforming to IEC 61970-552 Edition 1, the mRID is mapped to rdf:ID or rdf:about attributes that identify CIM object elements.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The name is any free human readable and possibly non unique text naming the object.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="WorkLocation" type="el:WorkLocation" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Location for this work/task.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TimeSchedules" type="el:WorkTimeSchedule" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>All time schedules for this work or work task.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="changedBy" type="xs:string" minOccurs="1" maxOccurs="1" />
+      <xs:element name="failureKind" type="xs:string" minOccurs="1" maxOccurs="1" />
+      <xs:element name="glAccount" type="xs:string" minOccurs="1" maxOccurs="1" />
+      <xs:element name="kind" type="xs:string" minOccurs="1" maxOccurs="1" />
+      <xs:element name="problemKind" type="xs:string" minOccurs="1" maxOccurs="1" />
+      <xs:element name="requestDateTime" type="xs:dateTime" minOccurs="1" maxOccurs="1" />
+      <xs:element name="siteId" type="el:Location" minOccurs="1" maxOccurs="1" />
+      <xs:element name="status" type="Status" minOccurs="1" maxOccurs="1" />
+      <xs:element name="WorkTask" type="el:WorkTask" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="Appointment" type="el:Appointment" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WorkLocation" type="el:WorkLocation" />
+  <xs:complexType name="WorkLocation">
+    <xs:annotation>
+      <xs:documentation>Information about a particular location for various forms of work.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="el:Location">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WorkTask" type="el:WorkTask" />
+  <xs:complexType name="WorkTask">
+    <xs:complexContent>
+      <xs:extension base="el:BaseWork">
+        <xs:sequence>
+          <xs:element name="instruction" type="xs:string" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Instructions for performing this task.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="schedOverride" type="xs:string" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>If specified, override schedule and perform this task in accordance with instructions specified here.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="taskKind" type="el:WorkTaskKind" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Kind of work.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Assets" type="el:Asset" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>All assets on which this non-replacement work task is performed.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Crews" type="el:Crew" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>All crews participating in this work task.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="WorkTaskKind">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="install">
+        <xs:annotation>
+          <xs:documentation>Work task deals with installation of assets.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="remove">
+        <xs:annotation>
+          <xs:documentation>Work task deals with removal of assets.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="exchange">
+        <xs:annotation>
+          <xs:documentation>Work task deals with exchange of assets.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="investigate">
+        <xs:annotation>
+          <xs:documentation>Work task deals with investigation about assets.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="WorkTimeSchedule" type="el:WorkTimeSchedule" />
+  <xs:complexType name="WorkTimeSchedule">
+    <xs:annotation>
+      <xs:documentation>Time schedule specific to work.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="el:TimeSchedule">
+        <xs:sequence>
+          <xs:element name="kind" type="el:WorkTimeScheduleKind" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Kind of this work schedule.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="WorkTimeScheduleKind">
+    <xs:annotation>
+      <xs:documentation>Kind of work schedule.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="estimate" />
+      <xs:enumeration value="request" />
+      <xs:enumeration value="actual" />
+      <xs:enumeration value="earliest" />
+      <xs:enumeration value="latest" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:annotation>
+    <xs:documentation>Contains the core PowerSystemResource and ConductingEquipment entities shared by all applications plus common collections of those entities. Not all applications require all the Core entities.  This package does not depend on any other package except the Domain package, but most of the other packages have associations and generalizations that depend on it.</xs:documentation>
+  </xs:annotation>
+  <xs:element name="IdentifiedObject" type="el:IdentifiedObject" />
+  <xs:complexType name="IdentifiedObject" abstract="true">
+    <xs:annotation>
+      <xs:documentation>This is a root class to provide common identification for all classes needing identification and naming attributes.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The description is a free human readable text describing or naming the object. It may be non unique and may not correlate to a naming hierarchy.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="mRID" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Master resource identifier issued by a model authority. The mRID is globally unique within an exchange context. Global uniqueness is easily achieved by using a UUID,  as specified in RFC 4122, for the mRID.  The use of UUID is strongly recommended.
+For CIMXML data files in RDF syntax conforming to IEC 61970-552 Edition 1, the mRID is mapped to rdf:ID or rdf:about attributes that identify CIM object elements.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The name is any free human readable and possibly non unique text naming the object.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>The domain package define primitive datatypes that are used by classes in other packages. Stereotypes are used to describe the datatypes. The following stereotypes are defined:
+&lt;&lt;enumeration&gt;&gt; A list of permissible constant values.
+&lt;&lt;Primitive&gt;&gt; The most basic data types used to compose all other data types.
+&lt;&lt;CIMDatatype&gt;&gt; A datatype that contains a value attribute, an optional unit of measure and a unit multiplier. The unit and multiplier may be specified as a static variable initialized to the allowed value.
+&lt;&lt;Compound&gt;&gt; A composite of Primitive, enumeration, CIMDatatype or othe Compound classes, as long as the Compound classes do not recurse.</xs:documentation>
+  </xs:annotation>
+  <xs:element name="Boolean" type="el:Boolean" />
+  <xs:complexType name="Boolean">
+    <xs:annotation>
+      <xs:documentation>A type with the value space "true" and "false".</xs:documentation>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="DateTime" type="xs:dateTime" />
+  <xs:complexType name="DateTime">
+    <xs:annotation>
+      <xs:documentation>Date and time as "yyyy-mm-ddThh:mm:ss.sss", which conforms with ISO 8601. UTC time zone is specified as "yyyy-mm-ddThh:mm:ss.sssZ". A local timezone relative UTC is specified as "yyyy-mm-ddThh:mm:ss.sss-hh:mm". The second component (shown here as "ss.sss") could have any number of digits in its fractional part to allow any kind of precision beyond seconds.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="DateTimeInterval" type="el:DateTimeInterval" />
+  <xs:complexType name="DateTimeInterval">
+    <xs:annotation>
+      <xs:documentation>Interval between two date and time points.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="end" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>End date and time of this interval.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="start" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Start date and time of this interval.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Integer" type="xs:integer" />
+  <xs:complexType name="Integer">
+    <xs:annotation>
+      <xs:documentation>An integer number. The range is unspecified and not limited.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="String" type="xs:string" />
+  <xs:complexType name="String">
+    <xs:annotation>
+      <xs:documentation>A string consisting of a sequence of characters. The character encoding is UTF-8. The string length is unspecified and unlimited.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="WorkRequests" type="el:WorkRequests" />
+  <xs:complexType name="WorkRequests">
+    <xs:sequence>
+      <xs:element name="Organisation" type="el:Organisation" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="ELWork" type="el:ELWork" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

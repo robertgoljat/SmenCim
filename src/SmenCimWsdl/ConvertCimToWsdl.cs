@@ -71,10 +71,22 @@ namespace SmenCimWsdl
 
             data = data.Replace("type=\"\"", "");
 
-            //File.Copy(nounFile, Path.Combine(outXsdPath, nounFile));
+            var nmspc = GetProfilesNamespace(data);
 
-            //return Path.Combine(outXsdPath, nounFile);
-
+            if (nmspc != "")
+            {
+                data = data.Replace($"type=\"{nmspc}:Boolean\"", "type =\"xs:boolean\"");
+                data = data.Replace($"type=\"{nmspc}:String\"", "type =\"xs:string\"");
+                data = data.Replace($"type=\"{nmspc}:Integer\"", "type =\"xs:integer\"");
+                data = data.Replace($"type=\"{nmspc}:Decimal\"", "type =\"xs:decimal\"");
+                data = data.Replace($"type=\"{nmspc}:Float\"", "type =\"xs:float\"");
+                data = data.Replace($"type=\"{nmspc}:Double\"", "type =\"xs:double\"");
+                data = data.Replace($"type=\"{nmspc}:DateTime\"", "type =\"xs:dateTime\"");
+                data = data.Replace($"type=\"{nmspc}:Duration\"", "type =\"xs:duration\"");
+                data = data.Replace($"type=\"{nmspc}:Date\"", "type =\"xs:date\"");
+                data = data.Replace($"type=\"{nmspc}:Time\"", "type =\"xs:time\""); 
+            }
+            
             return data.WriteDataToDisk(Path.Combine(outXsdPath, Path.GetFileName(nounFile)));
         }
         public string CreateArtifacts_Message(string outPath)
@@ -144,6 +156,34 @@ namespace SmenCimWsdl
             }
 
             return "";
+        }
+        public string GetProfilesNamespace(string data)
+        {
+            var nmspc = "";
+            int start = 0, end = 0;
+
+            while (true)
+            {
+                start = data.IndexOf("xmlns:", start);
+
+                if (start == -1)
+                {
+                    nmspc = "";
+
+                    break;
+                }
+
+                end = data.IndexOf("=", start);
+
+                nmspc = data.Substring(start + 6, end - start - 6);
+
+                if (nmspc != "xs")
+                    break;
+
+                start = end;
+            }
+            
+            return nmspc;
         }
     }
 }
