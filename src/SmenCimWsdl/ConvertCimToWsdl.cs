@@ -8,6 +8,10 @@ namespace SmenCimWsdl
     public class ConvertCimToWsdl
     {
         private List<string> _verbs = new List<string>() { "Get", "Send", "Receive", "Reply", "Request", "Execute" };
+        //private Dictionary<string, string> _typesToReplace = new Dictionary<string, string>()
+        //{
+        //    { "Boolean", "xs:boolean" }
+        //};
 
         public List<string> Verbs
         {
@@ -86,7 +90,18 @@ namespace SmenCimWsdl
                 data = data.Replace($"type=\"{nmspc}:Date\"", "type =\"xs:date\"");
                 data = data.Replace($"type=\"{nmspc}:Time\"", "type =\"xs:time\""); 
             }
-            
+
+            data = data.Replace($"type=\"Boolean\"", "type =\"xs:boolean\"");
+            data = data.Replace($"type=\"String\"", "type =\"xs:string\"");
+            data = data.Replace($"type=\"Integer\"", "type =\"xs:integer\"");
+            data = data.Replace($"type=\"Decimal\"", "type =\"xs:decimal\"");
+            data = data.Replace($"type=\"Float\"", "type =\"xs:float\"");
+            data = data.Replace($"type=\"Double\"", "type =\"xs:double\"");
+            data = data.Replace($"type=\"DateTime\"", "type =\"xs:dateTime\"");
+            data = data.Replace($"type=\"Duration\"", "type =\"xs:duration\"");
+            data = data.Replace($"type=\"Date\"", "type =\"xs:date\"");
+            data = data.Replace($"type=\"Time\"", "type =\"xs:time\"");
+
             return data.WriteDataToDisk(Path.Combine(outXsdPath, Path.GetFileName(nounFile)));
         }
         public string CreateArtifacts_Message(string outPath)
