@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmenCimWsdl
 {
@@ -20,7 +16,6 @@ namespace SmenCimWsdl
 
                 if (wsdlVerb == "")
                 {
-                    //Console.WriteLine($"Verb '{options.WsdlVerb}' is not correct!");
                     LogError($"Verb '{options.WsdlVerb}' is not correct!", true);
                     Console.WriteLine();
 
@@ -49,29 +44,23 @@ namespace SmenCimWsdl
                     Console.Write(" Created! {0}", convert.CreateArtifacts_Message(outXsdPath));
                     Console.WriteLine();
 
+                    string noun2 = "";
+
                     Console.Write(" 2. Creating profie...");
-                    Console.Write(" Created! {0}", convert.CreateArtifacts_Profile(options.NounFile, outXsdPath));
+                    Console.Write(" Created! {0}", convert.CreateArtifacts_Profile(options.NounFile, outXsdPath, out noun2));
                     Console.WriteLine();
 
                     Console.Write(" 3. Creating noun file...");
-                    Console.Write(" Created! {0}", convert.CreateArtifacts_NounMessage(wsdlVerb, noun, outXsdPath));
+                    Console.Write(" Created! {0}", convert.CreateArtifacts_NounMessage(wsdlVerb, noun, noun2, outXsdPath));
                     Console.WriteLine();
 
                     Console.Write(" 4. Creating WSDL...");
                     Console.Write(" Created! {0}", convert.CreateArtifacts_Wsdl(wsdlVerb, noun, outPath));
                     Console.WriteLine();
 
-                    //convert.CreateArtifacts_Wsdl(wsdlVerb, noun, outPath);
-
-                    //convert.CreateArtifacts_Message(outXsdPath);
-                    //convert.CreateArtifacts_NounMessage(wsdlVerb, noun, outXsdPath);
                 }
                 catch (Exception e1)
                 {
-                    //Console.ForegroundColor = ConsoleColor.Red;
-                    //Console.WriteLine($"Error! Message: {e1.Message}");
-                    //Console.ResetColor();
-
                     LogError(e1.Message);
                 }
 

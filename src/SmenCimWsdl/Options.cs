@@ -1,10 +1,5 @@
 ﻿using CommandLine;
 using CommandLine.Text;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmenCimWsdl
 {
@@ -30,7 +25,7 @@ namespace SmenCimWsdl
         {
             var help = new HelpText
             {
-                Heading = new HeadingInfo("SmenCIM - cimtowsdl", "0.5.0"),
+                Heading = new HeadingInfo("SmenCIM - cimtowsdl", "1.0.1"),
                 Copyright = new CopyrightInfo("SmenStorSys", 2017),
                 AdditionalNewLineAfterOption = true,
                 AddDashesToOption = true

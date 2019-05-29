@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<xs:schema 
+  xmlns:tns="http://iec.ch/TC57/2011/GetUsagePointConfigMessage" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  xmlns:msg="http://iec.ch/TC57/2011/schema/message" 
+  xmlns:obj1="http://iec.ch/TC57/2011/UsagePointConfig" 
+  targetNamespace="http://iec.ch/TC57/2011/GetUsagePointConfigMessage" 
+  elementFormDefault="qualified" 
+  attributeFormDefault="unqualified" 
+  version="1.0.0">   
+  <!-- Base Message Definitions -->   
+  <xs:import namespace="http://iec.ch/TC57/2011/schema/message" schemaLocation="Message.xsd"/>   
+  <!-- CIM Information Object Definition -->   
+  <xs:import namespace="http://iec.ch/TC57/2011/UsagePointConfig" schemaLocation="UsagePointConfig.xsd"/>   
+  <!-- RequestType Definition -->   
+  <xs:complexType name="GetUsagePointConfigRequestType">     
+    <xs:sequence>       
+      <xs:element name="StartTime" type="xs:dateTime" minOccurs="0">         
+        <xs:annotation>           
+          <xs:documentation>Start time of interest</xs:documentation>         
+        </xs:annotation>       
+      </xs:element>       
+      <xs:element name="EndTime" type="xs:dateTime" minOccurs="0">         
+        <xs:annotation>           
+          <xs:documentation>End time of interest</xs:documentation>         
+        </xs:annotation>       
+      </xs:element>       
+      <xs:element name="Option" type="msg:OptionType" minOccurs="0" maxOccurs="unbounded">         
+        <xs:annotation>           
+          <xs:documentation>Request type specialization</xs:documentation>         
+        </xs:annotation>       
+      </xs:element>       
+      <xs:element name="ID" type="xs:string" minOccurs="0" maxOccurs="unbounded">         
+        <xs:annotation>           
+          <xs:documentation>Object ID for request</xs:documentation>         
+        </xs:annotation>       
+      </xs:element>            
+    </xs:sequence>   
+  </xs:complexType>   
+<!-- PayloadType Definition -->   
+  <xs:complexType name="UsagePointConfigPayloadType">     
+    <xs:sequence>       
+      <xs:element ref="obj1:UsagePointConfig" minOccurs="0"/>       
+      <xs:element name="OperationSet" type="msg:OperationSet" minOccurs="0"/>       
+      <xs:element name="Compressed" type="xs:string" minOccurs="0">         
+        <xs:annotation>           
+          <xs:documentation>For compressed and/or binary, uuencoded payloads</xs:documentation>         
+        </xs:annotation>       
+      </xs:element>       
+      <xs:element name="Format" type="xs:string" minOccurs="0">         
+        <xs:annotation>           
+          <xs:documentation>Hint as to format of payload, e.g. XML, RDF, SVF, BINARY, PDF, ...</xs:documentation>         
+        </xs:annotation>       
+      </xs:element>     
+    </xs:sequence>   
+  </xs:complexType>   
+  <!-- Message Types -->   
+  <!-- RequestMessageType -->   
+  <xs:complexType name="GetUsagePointConfigRequestMessageType">     
+    <xs:sequence>       
+      <xs:element name="Header" type="msg:HeaderType"/>       
+    <xs:element name="Request" type="tns:GetUsagePointConfigRequestType"/>       
+      <xs:element name="Payload" type="tns:UsagePointConfigPayloadType" minOccurs="0"/>     
+    </xs:sequence>   
+  </xs:complexType>   
+  <!-- ResponseMessageType -->   
+  <xs:complexType name="UsagePointConfigResponseMessageType">     
+    <xs:sequence>       
+      <xs:element name="Header" type="msg:HeaderType"/>       
+      <xs:element name="Reply" type="msg:ReplyType"/>       
+      <xs:element name="Payload" type="tns:UsagePointConfigPayloadType" minOccurs="0"/>     
+    </xs:sequence>   
+  </xs:complexType>   
+  <!-- FaultMessageType -->   
+  <xs:complexType name="UsagePointConfigFaultMessageType">     
+    <xs:sequence>       
+      <xs:element name="Reply" type="msg:ReplyType"/>     
+    </xs:sequence>   
+  </xs:complexType>   
+  <xs:element name="GetUsagePointConfig" type="tns:GetUsagePointConfigRequestMessageType"/>   
+  <xs:element name="UsagePointConfigResponseMessage" type="tns:UsagePointConfigResponseMessageType"/>   
+  <xs:element name="UsagePointConfigFaultMessage" type="tns:UsagePointConfigFaultMessageType"/> 
+</xs:schema> 

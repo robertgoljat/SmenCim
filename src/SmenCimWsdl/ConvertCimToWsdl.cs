@@ -7,28 +7,16 @@ namespace SmenCimWsdl
 {
     public class ConvertCimToWsdl
     {
-        private List<string> _verbs = new List<string>() { "Get", "Send", "Receive", "Reply", "Request", "Execute" };
-        //private Dictionary<string, string> _typesToReplace = new Dictionary<string, string>()
-        //{
-        //    { "Boolean", "xs:boolean" }
-        //};
-
-        public List<string> Verbs
-        {
-            get
-            {
-                return _verbs;
-            }
-        }
+        public List<string> Verbs { get; } = new List<string>() { "Get", "Send", "Receive", "Reply", "Request", "Execute" };
 
         public string BeautifyVerb(string verb)
         {
-            if (!_verbs.Contains(verb.UppercaseFirst()))
+            if (!Verbs.Contains(verb.UppercaseFirst()))
             {
                 return "";
             }
             
-            return _verbs.Where(_ => _ == verb.UppercaseFirst()).Single();
+            return Verbs.Where(_ => _ == verb.UppercaseFirst()).Single();
         }
 
         public string GetNoun(string nounFile)
@@ -61,8 +49,10 @@ namespace SmenCimWsdl
             return outPath;
         }
 
-        public string CreateArtifacts_Profile(string nounFile, string outXsdPath)
+        public string CreateArtifacts_Profile(string nounFile, string outXsdPath, out string noun2)
         {
+            noun2 = "";
+
             if (!File.Exists(nounFile))
                 throw new Exception($"Noun file '{nounFile}' doesn't exist!");
 
@@ -73,34 +63,9 @@ namespace SmenCimWsdl
             
             data = nounFile.ReadDataFromFile();
 
-            data = data.Replace("type=\"\"", "");
+            data = data.ReplaceEATypes();
 
-            var nmspc = GetProfilesNamespace(data);
-
-            if (nmspc != "")
-            {
-                data = data.Replace($"type=\"{nmspc}:Boolean\"", "type =\"xs:boolean\"");
-                data = data.Replace($"type=\"{nmspc}:String\"", "type =\"xs:string\"");
-                data = data.Replace($"type=\"{nmspc}:Integer\"", "type =\"xs:integer\"");
-                data = data.Replace($"type=\"{nmspc}:Decimal\"", "type =\"xs:decimal\"");
-                data = data.Replace($"type=\"{nmspc}:Float\"", "type =\"xs:float\"");
-                data = data.Replace($"type=\"{nmspc}:Double\"", "type =\"xs:double\"");
-                data = data.Replace($"type=\"{nmspc}:DateTime\"", "type =\"xs:dateTime\"");
-                data = data.Replace($"type=\"{nmspc}:Duration\"", "type =\"xs:duration\"");
-                data = data.Replace($"type=\"{nmspc}:Date\"", "type =\"xs:date\"");
-                data = data.Replace($"type=\"{nmspc}:Time\"", "type =\"xs:time\""); 
-            }
-
-            data = data.Replace($"type=\"Boolean\"", "type =\"xs:boolean\"");
-            data = data.Replace($"type=\"String\"", "type =\"xs:string\"");
-            data = data.Replace($"type=\"Integer\"", "type =\"xs:integer\"");
-            data = data.Replace($"type=\"Decimal\"", "type =\"xs:decimal\"");
-            data = data.Replace($"type=\"Float\"", "type =\"xs:float\"");
-            data = data.Replace($"type=\"Double\"", "type =\"xs:double\"");
-            data = data.Replace($"type=\"DateTime\"", "type =\"xs:dateTime\"");
-            data = data.Replace($"type=\"Duration\"", "type =\"xs:duration\"");
-            data = data.Replace($"type=\"Date\"", "type =\"xs:date\"");
-            data = data.Replace($"type=\"Time\"", "type =\"xs:time\"");
+            noun2 = data.GetTargetNamespace().GetNounFromTargetNamespace();
 
             return data.WriteDataToDisk(Path.Combine(outXsdPath, Path.GetFileName(nounFile)));
         }
@@ -119,7 +84,7 @@ namespace SmenCimWsdl
 
             return "";
         }
-        public string CreateArtifacts_NounMessage(string verb, string noun, string outPath)
+        public string CreateArtifacts_NounMessage(string verb, string noun, string noun2, string outPath)
         {
             try
             {
@@ -134,8 +99,8 @@ namespace SmenCimWsdl
                     data = "SendReceiveReplyRequestExecuteMessage.xsd".ReadDataFromEmbeddedResource();
                 else
                     throw new Exception($"Wrong verb '{verb}'");
-                
-                data = data.Replace(@"{Information_Object_Name}#", noun).Replace(@"{Information_Object_Name}", noun);
+
+                data = data.ReplaceInformationObjectName(noun, noun2);
 
                 return data.WriteDataToDisk(Path.Combine(outPath, $"{nameVerb}{noun}Message.xsd"));
             }
@@ -172,33 +137,6 @@ namespace SmenCimWsdl
 
             return "";
         }
-        public string GetProfilesNamespace(string data)
-        {
-            var nmspc = "";
-            int start = 0, end = 0;
 
-            while (true)
-            {
-                start = data.IndexOf("xmlns:", start);
-
-                if (start == -1)
-                {
-                    nmspc = "";
-
-                    break;
-                }
-
-                end = data.IndexOf("=", start);
-
-                nmspc = data.Substring(start + 6, end - start - 6);
-
-                if (nmspc != "xs")
-                    break;
-
-                start = end;
-            }
-            
-            return nmspc;
-        }
     }
 }
