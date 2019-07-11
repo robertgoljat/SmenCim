@@ -26,6 +26,8 @@ namespace SmenXsdToCs
             // Get the namespace for the schema.
             CodeNamespace ns = xsdFile.ProcessXsd(targetNamespace);
 
+            ns.Imports.AddRange(new CodeNamespaceImport[] { new CodeNamespaceImport("System.Runtime.Serialization") });
+
             foreach (CodeTypeDeclaration type in ns.Types)
             {
                 if (type.IsClass)
@@ -51,11 +53,19 @@ namespace SmenXsdToCs
                             member.CustomAttributes.Remove(new string[]
                             {
                                 "System.Xml.Serialization.XmlElementAttribute",
-                                "System.Xml.Serialization.XmlIgnoreAttribute"
-                            }).Add(new string[]
-                            {
-                                "DataMember"
+                                "System.Xml.Serialization.XmlIgnoreAttribute",
+                                "System.Xml.Serialization.XmlAnyElementAttribute",
+                                "System.ComponentModel.DefaultValueAttribute",
+                                "System.Xml.Serialization.XmlAttributeAttribute"
                             });
+
+                            if (!(member is CodeConstructor))
+                            {
+                                member.CustomAttributes.Add(new string[]
+                                {
+                                    "DataMember"
+                                });
+                            }
                         }                         
                     }
                 }
@@ -81,6 +91,10 @@ namespace SmenXsdToCs
                             "EnumMember"
                         });
                     }
+                }
+                else
+                {
+                    var xxx = "unknown";
                 }
             }
 

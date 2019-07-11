@@ -72,6 +72,9 @@
     <None Include="Resources\GetReplyMessage.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Resources\MeterReadSchedule.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\SendReceiveReplyRequestExecuteMessage.xsd">
       <SubType>Designer</SubType>
     </None>

@@ -8,8 +8,11 @@ namespace SmenXsdToCs
         [Option('x', "xsdfile", Required = true, HelpText = "Xsd file!")]
         public string XsdFile { get; set; }
 
-        //[Option('n', "namespace", Required = true, HelpText = "Namespace!")]
-        //public string Namespace { get; set; }
+        [Option('n', "namespace", Required = false, DefaultValue = "CIM", HelpText = "Target namespace!")]
+        public string Namespace { get; set; }
+
+        [Option('e', "extension", Required = false, DefaultValue = "", HelpText = "Namespace extension!")]
+        public string Extension { get; set; }
 
         [Option('o', "outputfile", Required = true, HelpText = "Output file (cs)!")]
         public string OutputFile { get; set; }
@@ -29,7 +32,7 @@ namespace SmenXsdToCs
             };
             
             help.AddPreOptionsLine(" ");
-            help.AddPreOptionsLine("Usage: xsdtocs -x XSDFILE.XSD -o OUTPUTFILE.CS");
+            help.AddPreOptionsLine("Usage: xsdtocs -x XSDFILE.XSD -o OUTPUTFILE.CS -n NMSP -e EXT");
             help.AddOptions(this);
 
             return help;

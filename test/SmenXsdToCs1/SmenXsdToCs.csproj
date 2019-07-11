@@ -73,6 +73,9 @@
     <None Include="EndDeviceEvents.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="GetMeterReadScheduleMessage.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="GetUsagePointConfigMessage.xsd">
       <SubType>Designer</SubType>
     </None>

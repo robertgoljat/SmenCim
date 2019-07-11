@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="Helper.cs" />
     <Compile Include="Options.cs" />
-    <Compile Include="Process.cs" />
+    <Compile Include="Processor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

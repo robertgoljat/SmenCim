@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?> 
 <xs:schema 
-  xmlns:tns="http://iec.ch/TC57/2011/GetUsagePointConfigMessage" 
+  xmlns:tns="http://iec.ch/TC57/2011/GetMeterReadScheduleMessage" 
   xmlns:xs="http://www.w3.org/2001/XMLSchema" 
   xmlns:msg="http://iec.ch/TC57/2011/schema/message" 
-  xmlns:obj1="http://iec.ch/TC57/2011/UsagePointConfig#" 
-  targetNamespace="http://iec.ch/TC57/2011/GetUsagePointConfigMessage" 
+  xmlns:obj1="http://iec.ch/TC57/2011/MeterReadSchedule#" 
+  targetNamespace="http://iec.ch/TC57/2011/GetMeterReadScheduleMessage" 
   elementFormDefault="qualified" 
   attributeFormDefault="unqualified" 
   version="1.0.0">   
   <!-- Base Message Definitions -->   
   <xs:import namespace="http://iec.ch/TC57/2011/schema/message" schemaLocation="Message.xsd"/>   
   <!-- CIM Information Object Definition -->   
-  <xs:import namespace="http://iec.ch/TC57/2011/UsagePointConfig#" schemaLocation="UsagePointConfig.xsd"/>   
+  <xs:import namespace="http://iec.ch/TC57/2011/MeterReadSchedule#" schemaLocation="MeterReadSchedule.xsd"/>   
   <!-- RequestType Definition -->   
-  <xs:complexType name="GetUsagePointConfigRequestType">     
+  <xs:complexType name="GetMeterReadScheduleRequestType">     
     <xs:sequence>       
       <xs:element name="StartTime" type="xs:dateTime" minOccurs="0">         
         <xs:annotation>           
@@ -38,9 +38,9 @@
     </xs:sequence>   
   </xs:complexType>   
 <!-- PayloadType Definition -->   
-  <xs:complexType name="UsagePointConfigPayloadType">     
+  <xs:complexType name="MeterReadSchedulePayloadType">     
     <xs:sequence>       
-      <xs:element ref="obj1:UsagePointConfig" minOccurs="0"/>       
+      <xs:element ref="obj1:MeterReadSchedule" minOccurs="0"/>       
       <xs:element name="OperationSet" type="msg:OperationSet" minOccurs="0"/>       
       <xs:element name="Compressed" type="xs:string" minOccurs="0">         
         <xs:annotation>           
@@ -56,28 +56,28 @@
   </xs:complexType>   
   <!-- Message Types -->   
   <!-- RequestMessageType -->   
-  <xs:complexType name="GetUsagePointConfigRequestMessageType">     
+  <xs:complexType name="GetMeterReadScheduleRequestMessageType">     
     <xs:sequence>       
       <xs:element name="Header" type="msg:HeaderType"/>       
-    <xs:element name="Request" type="tns:GetUsagePointConfigRequestType"/>       
-      <xs:element name="Payload" type="tns:UsagePointConfigPayloadType" minOccurs="0"/>     
+    <xs:element name="Request" type="tns:GetMeterReadScheduleRequestType"/>       
+      <xs:element name="Payload" type="tns:MeterReadSchedulePayloadType" minOccurs="0"/>     
     </xs:sequence>   
   </xs:complexType>   
   <!-- ResponseMessageType -->   
-  <xs:complexType name="UsagePointConfigResponseMessageType">     
+  <xs:complexType name="MeterReadScheduleResponseMessageType">     
     <xs:sequence>       
       <xs:element name="Header" type="msg:HeaderType"/>       
       <xs:element name="Reply" type="msg:ReplyType"/>       
-      <xs:element name="Payload" type="tns:UsagePointConfigPayloadType" minOccurs="0"/>     
+      <xs:element name="Payload" type="tns:MeterReadSchedulePayloadType" minOccurs="0"/>     
     </xs:sequence>   
   </xs:complexType>   
   <!-- FaultMessageType -->   
-  <xs:complexType name="UsagePointConfigFaultMessageType">     
+  <xs:complexType name="MeterReadScheduleFaultMessageType">     
     <xs:sequence>       
       <xs:element name="Reply" type="msg:ReplyType"/>     
     </xs:sequence>   
   </xs:complexType>   
-  <xs:element name="GetUsagePointConfig" type="tns:GetUsagePointConfigRequestMessageType"/>   
-  <xs:element name="UsagePointConfigResponseMessage" type="tns:UsagePointConfigResponseMessageType"/>   
-  <xs:element name="UsagePointConfigFaultMessage" type="tns:UsagePointConfigFaultMessageType"/> 
+  <xs:element name="GetMeterReadSchedule" type="tns:GetMeterReadScheduleRequestMessageType"/>   
+  <xs:element name="MeterReadScheduleResponseMessage" type="tns:MeterReadScheduleResponseMessageType"/>   
+  <xs:element name="MeterReadScheduleFaultMessage" type="tns:MeterReadScheduleFaultMessageType"/> 
 </xs:schema> 

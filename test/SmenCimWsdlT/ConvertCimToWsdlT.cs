@@ -52,6 +52,28 @@ namespace SmenCimWsdl.T
             Assert.AreEqual("UsagePointConfig#", noun2);
 
             Assert.IsTrue(File.Exists(outXsdPath2));
+
+
+            filepath = @"..\..\Resources\MeterReadSchedule.xsd";
+            outXsdPath = @"xsd\";
+
+            Assert.IsTrue(File.Exists(filepath));
+
+            if (!Directory.Exists(outXsdPath))
+                Directory.CreateDirectory(outXsdPath);
+
+            Assert.IsTrue(Directory.Exists(outXsdPath));
+
+            if (File.Exists(Path.Combine(outXsdPath, Path.GetFileName(filepath))))
+                File.Delete(Path.Combine(outXsdPath, Path.GetFileName(filepath)));
+
+            noun2 = "";
+            outXsdPath2 = converter.CreateArtifacts_Profile(filepath, outXsdPath, out noun2);
+
+            Assert.AreEqual(Path.Combine(outXsdPath, Path.GetFileName(filepath)), outXsdPath2);
+            Assert.AreEqual("MeterReadSchedule#", noun2);
+
+            Assert.IsTrue(File.Exists(outXsdPath2));
         }
                 
     }

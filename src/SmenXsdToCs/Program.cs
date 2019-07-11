@@ -19,11 +19,10 @@ namespace SmenXsdToCs
             {
                 try
                 {
-                    // Get the namespace for the schema.
-                    //CodeNamespace ns = options.XsdFile.ProcessXsd(options.Namespace); //args[0].ProcessXsd(args[1]);
+                    var targetnamespace = options.Namespace != "" ? (options.Extension != "" ? $"{options.Namespace}.{options.Extension}" : options.Namespace) : "CIM";
 
                     Console.Write(" Creating CS file...");
-                    Processor.XsdToCs(options.XsdFile, "CIM", options.OutputFile);
+                    Processor.XsdToCs(options.XsdFile, targetnamespace, options.OutputFile);
                     Console.Write(" Created! {0}", options.OutputFile);
                     Console.WriteLine();
                 }
