@@ -17,12 +17,16 @@ namespace SmenXsdToCs
 
             if (CommandLine.Parser.Default.ParseArguments(args, options))
             {
+                string targetnamespace, xsdfile;
+                string[] deleteXsd = null;
+
                 try
                 {
-                    var targetnamespace = options.Namespace != "" ? (options.Extension != "" ? $"{options.Namespace}.{options.Extension}" : options.Namespace) : "CIM";
+                    targetnamespace = options.Namespace != "" ? (options.Extension != "" ? $"{options.Namespace}.{options.Extension}" : options.Namespace) : "CIM";
+                    xsdfile = getXsdfile(options.XsdFile, out deleteXsd);
 
                     Console.Write(" Creating CS file...");
-                    Processor.XsdToCs(options.XsdFile, targetnamespace, options.OutputFile);
+                    Processor.XsdToCs(xsdfile, targetnamespace, options.OutputFile);
                     Console.Write(" Created! {0}", options.OutputFile);
                     Console.WriteLine();
                 }
@@ -30,6 +34,8 @@ namespace SmenXsdToCs
                 {
                     LogError(e1.Message);
                 }
+
+                deleteXsd?.ToList().ForEach(_ => File.Delete(_));
 
                 Console.WriteLine();
 
@@ -46,6 +52,43 @@ namespace SmenXsdToCs
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(OverridePretext ? $"{Message}" : $"Error! Message: {Message}");
             Console.ResetColor();
+        }
+        static string getXsdfile(string xsdFile, out string[] deleteXsd)
+        {
+            deleteXsd = null;
+
+            if (!File.Exists(xsdFile))
+                throw new Exception($"Xsd file doesn't exist! Path: {xsdFile}");
+
+            if (!IsInBaseDirectory(xsdFile))
+            {
+                var newXsdFile = Path.Combine(Directory.GetCurrentDirectory(), Path.GetFileName(xsdFile));
+
+                deleteXsd = Directory.GetFiles(Path.GetDirectoryName(xsdFile), "*.xsd").Select(_ => Path.Combine(Directory.GetCurrentDirectory(), Path.GetFileName(_))).ToArray();
+
+                foreach (var file in Directory.GetFiles(Path.GetDirectoryName(xsdFile), "*.xsd"))
+                {
+                    var f = Path.Combine(Directory.GetCurrentDirectory(), Path.GetFileName(file));
+
+                    if (File.Exists(f))
+                        File.Delete(f);
+
+                    File.Copy(file, f);
+                }
+                
+                return Path.GetFileName(newXsdFile);
+            }
+            else
+            {
+                return Path.GetFileName(xsdFile);
+            }
+        }
+        static bool IsInBaseDirectory(string xsdFile)
+        {
+            if (Path.GetDirectoryName(xsdFile) == "")
+                return true;
+
+            return Directory.GetCurrentDirectory() == Path.GetDirectoryName(xsdFile);
         }
     }
 }

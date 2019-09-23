@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<wsdl:definitions 
+  name="GetUsagePointConfig" 
+  targetNamespace="http://iec.ch/TC57/2011/GetUsagePointConfig" 
+  xmlns:tns="http://iec.ch/TC57/2011/GetUsagePointConfig" 
+  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" 
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" 
+  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+  xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" 
+  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" 
+  xmlns:infoMessage="http://iec.ch/TC57/2011/GetUsagePointConfigMessage">
+  <wsdl:types>
+    <xs:schema targetNamespace="http://iec.ch/TC57/2011/GetUsagePointConfig"  elementFormDefault="qualified">
+      <xs:import namespace="http://iec.ch/TC57/2011/GetUsagePointConfigMessage" schemaLocation="xsd/GetUsagePointConfigMessage.xsd"/>  
+    </xs:schema> 
+  </wsdl:types> 
+  <!-- Message Definitions --> 
+  <wsdl:message name="GetUsagePointConfigRequestMessage">
+    <wsdl:part name="GetUsagePointConfigRequestMessage" element="infoMessage:GetUsagePointConfig"/>
+  </wsdl:message>  
+  <wsdl:message name="ResponseMessage">
+    <wsdl:part name="ResponseMessage" element="infoMessage:UsagePointConfigResponseMessage"/>
+  </wsdl:message>  
+  <wsdl:message name="FaultMessage">
+    <wsdl:part name="FaultMessage" element="infoMessage:UsagePointConfigFaultMessage"/>
+  </wsdl:message>  
+  <!-- Port Definitions -->
+  <wsdl:portType name="GetUsagePointConfig_Port"> 
+    <wsdl:operation name="GetUsagePointConfig"> 
+      <wsdl:input name="GetUsagePointConfigRequest" message="tns:GetUsagePointConfigRequestMessage"/> 
+      <wsdl:output name="GetUsagePointConfigResponse" message="tns:ResponseMessage"/> 
+      <wsdl:fault name="GetUsagePointConfigFault" message="tns:FaultMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>  
+  <wsdl:binding name="GetUsagePointConfig_Binding" type="tns:GetUsagePointConfig_Port">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/> 
+    <wsdl:operation name="GetUsagePointConfig">
+      <soap:operation soapAction="http://iec.ch/TC57/2011/GetUsagePointConfig/GetUsagePointConfig" style="document"/> 
+      <wsdl:input name="GetUsagePointConfigRequest">  
+        <soap:body use="literal"/> 
+      </wsdl:input> 
+      <wsdl:output name="GetUsagePointConfigResponse">  
+        <soap:body use="literal"/> 
+      </wsdl:output> 
+      <wsdl:fault name="GetUsagePointConfigFault">  
+        <soap:fault name="GetUsagePointConfigFault" use="literal"/> 
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>  
+  <wsdl:service name="GetUsagePointConfig">
+    <wsdl:port name="GetUsagePointConfig_Port" binding="tns:GetUsagePointConfig_Binding"> 
+      <soap:address location="http://iec.ch/TC57/2011/GetUsagePointConfig"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions> 

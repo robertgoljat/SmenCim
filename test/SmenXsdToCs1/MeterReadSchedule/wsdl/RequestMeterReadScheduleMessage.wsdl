@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<wsdl:definitions 
+  name="RequestMeterReadSchedule" 
+  targetNamespace="http://iec.ch/TC57/2011/RequestMeterReadSchedule" 
+  xmlns:tns="http://iec.ch/TC57/2011/RequestMeterReadSchedule" 
+  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" 
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" 
+  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+  xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" 
+  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" 
+  xmlns:infoMessage="http://iec.ch/TC57/2011/MeterReadScheduleMessage">
+  <wsdl:types>
+    <xs:schema targetNamespace="http://iec.ch/TC57/2011/RequestMeterReadSchedule"  elementFormDefault="qualified"> 
+      <xs:import namespace="http://iec.ch/TC57/2011/MeterReadScheduleMessage" schemaLocation="xsd/MeterReadScheduleMessage.xsd"/> 
+    </xs:schema> 
+  </wsdl:types> 
+  <!-- Message Definitions -->
+  <wsdl:message name="CreateMeterReadScheduleRequestMessage">
+    <wsdl:part name="CreateMeterReadScheduleRequestMessage" element="infoMessage:CreateMeterReadSchedule"/> 
+  </wsdl:message>
+  <wsdl:message name="ChangeMeterReadScheduleRequestMessage">
+    <wsdl:part name="ChangeMeterReadScheduleRequestMessage" element="infoMessage:ChangeMeterReadSchedule"/> 
+  </wsdl:message>
+  <wsdl:message name="CloseMeterReadScheduleRequestMessage">
+    <wsdl:part name="CloseMeterReadScheduleRequestMessage" element="infoMessage:CloseMeterReadSchedule"/> 
+  </wsdl:message>
+  <wsdl:message name="CancelMeterReadScheduleRequestMessage">
+    <wsdl:part name="CancelMeterReadScheduleRequestMessage" element="infoMessage:CancelMeterReadSchedule"/> 
+  </wsdl:message>
+  <wsdl:message name="DeleteMeterReadScheduleRequestMessage">
+    <wsdl:part name="DeleteMeterReadScheduleRequestMessage" element="infoMessage:DeleteMeterReadSchedule"/> 
+  </wsdl:message>
+  <wsdl:message name="ResponseMessage">
+    <wsdl:part name="ResponseMessage" element="infoMessage:MeterReadScheduleResponseMessage"/> 
+  </wsdl:message>
+  <wsdl:message name="FaultMessage">
+    <wsdl:part name="FaultMessage" element="infoMessage:MeterReadScheduleFaultMessage"/> 
+  </wsdl:message>
+  <!-- Port Definitions --> 
+  <wsdl:portType name="MeterReadSchedule_Port">
+    <wsdl:operation name="CreateMeterReadSchedule"> 
+      <wsdl:input name="CreateMeterReadScheduleRequest" message="tns:CreateMeterReadScheduleRequestMessage"/> 
+      <wsdl:output name="CreateMeterReadScheduleResponse" message="tns:ResponseMessage"/> 
+      <wsdl:fault name="CreateMeterReadScheduleFault" message="tns:FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeMeterReadSchedule"> 
+      <wsdl:input name="ChangeMeterReadScheduleRequest" message="tns:ChangeMeterReadScheduleRequestMessage"/> 
+      <wsdl:output name="ChangeMeterReadScheduleResponse" message="tns:ResponseMessage"/> 
+      <wsdl:fault name="ChangeMeterReadScheduleFault" message="tns:FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="CancelMeterReadSchedule"> 
+      <wsdl:input name="CancelMeterReadScheduleRequest" message="tns:CancelMeterReadScheduleRequestMessage"/> 
+      <wsdl:output name="CancelMeterReadScheduleResponse" message="tns:ResponseMessage"/> 
+      <wsdl:fault name="CancelMeterReadScheduleFault" message="tns:FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="CloseMeterReadSchedule"> 
+      <wsdl:input name="CloseMeterReadScheduleRequest" message="tns:CloseMeterReadScheduleRequestMessage"/> 
+      <wsdl:output name="CloseMeterReadScheduleResponse" message="tns:ResponseMessage"/> 
+      <wsdl:fault name="CloseMeterReadScheduleFault" message="tns:FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMeterReadSchedule"> 
+      <wsdl:input name="DeleteMeterReadScheduleRequest" message="tns:DeleteMeterReadScheduleRequestMessage"/> 
+      <wsdl:output name="DeleteMeterReadScheduleResponse" message="tns:ResponseMessage"/> 
+      <wsdl:fault name="DeleteMeterReadScheduleFault" message="tns:FaultMessage"/>
+    </wsdl:operation> 
+  </wsdl:portType>
+  <wsdl:binding name="MeterReadSchedule_Binding" type="tns:MeterReadSchedule_Port"> 
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="CreateMeterReadSchedule"> 
+  <soap:operation soapAction="http://iec.ch/TC57/2011/MeterReadSchedule/CreateMeterReadSchedule" style="document"/> 
+  <wsdl:input name="CreateMeterReadScheduleRequest">
+    <soap:body use="literal"/> 
+  </wsdl:input> 
+  <wsdl:output name="CreateMeterReadScheduleResponse">
+    <soap:body use="literal"/> 
+  </wsdl:output> 
+  <wsdl:fault name="CreateMeterReadScheduleFault">
+    <soap:fault name="CreateMeterReadScheduleFault" use="literal"/> 
+  </wsdl:fault> 
+    </wsdl:operation>
+    <wsdl:operation name="ChangeMeterReadSchedule"> 
+  <soap:operation soapAction="http://iec.ch/TC57/2011/MeterReadSchedule/ChangeMeterReadSchedule" style="document"/> 
+  <wsdl:input name="ChangeMeterReadScheduleRequest">
+    <soap:body use="literal"/> 
+  </wsdl:input> 
+  <wsdl:output name="ChangeMeterReadScheduleResponse">
+    <soap:body use="literal"/> 
+  </wsdl:output> 
+  <wsdl:fault name="ChangeMeterReadScheduleFault">
+    <soap:fault name="ChangeMeterReadScheduleFault" use="literal"/> 
+  </wsdl:fault>
+    </wsdl:operation>
+  <wsdl:operation name="CancelMeterReadSchedule"> 
+  <soap:operation soapAction="http://iec.ch/TC57/2011/MeterReadSchedule/CancelMeterReadSchedule" style="document"/> 
+  <wsdl:input name="CancelMeterReadScheduleRequest">
+    <soap:body use="literal"/> 
+</wsdl:input> 
+  <wsdl:output name="CancelMeterReadScheduleResponse">
+    <soap:body use="literal"/> 
+  </wsdl:output> 
+  <wsdl:fault name="CancelMeterReadScheduleFault">
+    <soap:fault name="CancelMeterReadScheduleFault" use="literal"/> 
+  </wsdl:fault>
+</wsdl:operation>
+    <wsdl:operation name="CloseMeterReadSchedule"> 
+  <soap:operation soapAction="http://iec.ch/TC57/2011/MeterReadSchedule/CloseMeterReadSchedule" style="document"/> 
+  <wsdl:input name="CloseMeterReadScheduleRequest">
+    <soap:body use="literal"/> 
+  </wsdl:input> 
+  <wsdl:output name="CloseMeterReadScheduleResponse">
+    <soap:body use="literal"/> 
+  </wsdl:output> 
+  <wsdl:fault name="CloseMeterReadScheduleFault">
+    <soap:fault name="CloseMeterReadScheduleFault" use="literal"/> 
+  </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMeterReadSchedule"> 
+  <soap:operation soapAction="http://iec.ch/TC57/2011/MeterReadSchedule/DeleteMeterReadSchedule" style="document"/> 
+  <wsdl:input name="DeleteMeterReadScheduleRequest">
+    <soap:body use="literal"/> 
+  </wsdl:input> 
+  <wsdl:output name="DeleteMeterReadScheduleResponse">
+    <soap:body use="literal"/> 
+  </wsdl:output> 
+  <wsdl:fault name="DeleteMeterReadScheduleFault">
+    <soap:fault name="DeleteMeterReadScheduleFault" use="literal"/> 
+  </wsdl:fault>
+    </wsdl:operation> 
+  </wsdl:binding>
+  <wsdl:service name="RequestMeterReadSchedule">
+    <wsdl:port name="MeterReadSchedule_Port" binding="tns:MeterReadSchedule_Binding"> 
+  <soap:address location="http://iec.ch/TC57/2011/RequestMeterReadSchedule"/>
+    </wsdl:port> 
+  </wsdl:service> 
+</wsdl:definitions>

@@ -97,5 +97,47 @@ namespace SmenXsdToCs.T
             Assert.IsTrue(File.Exists(outp));
 
         }
+        [TestMethod()]
+        public void XsdToCs_UsagePointConfig()
+        {
+            var fileS = "../../UsagePointConfig/wsdl/xsd/GetUsagePointConfigMessage.xsd";
+            var fileD = "GetUsagePointConfigMessage.xsd";
+            var outp = "GetUsagePointConfigMessage.cs";
+            TransformToCs(fileS, fileD, outp);
+
+            fileS = "../../UsagePointConfig/wsdl/xsd/UsagePointConfigMessage.xsd";
+            fileD = "UsagePointConfigMessage.xsd";
+            outp = "UsagePointConfigMessage.cs";
+            TransformToCs(fileS, fileD, outp);
+        }
+        [TestMethod()]
+        public void XsdToCs_GetMeterReadScheduleMessage()
+        {
+            var fileS = "../../MeterReadSchedule/wsdl/xsd/GetMeterReadScheduleMessage.xsd";
+            var fileD = "GetMeterReadScheduleMessage.xsd";
+            var outp = "GetMeterReadScheduleMessage.cs";
+            TransformToCs(fileS, fileD, outp);
+
+            //fileS = "../../UsagePointConfig/wsdl/xsd/UsagePointConfigMessage.xsd";
+            //fileD = "UsagePointConfigMessage.xsd";
+            //outp = "UsagePointConfigMessage.cs";
+            //TransformToCs(fileS, fileD, outp);
+        }
+
+        private static void TransformToCs(string fileS, string fileD, string outp)
+        {
+            if (File.Exists(fileD))
+                File.Delete(fileD);
+
+            if (File.Exists(outp))
+                File.Delete(outp);
+
+            if (!File.Exists(fileD))
+                File.Copy(fileS, fileD);
+
+            Assert.IsFalse(File.Exists(outp));
+            Processor.XsdToCs(fileD, "CIM", outp);
+            Assert.IsTrue(File.Exists(outp));
+        }
     }
 }

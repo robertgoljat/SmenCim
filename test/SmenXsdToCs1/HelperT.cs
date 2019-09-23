@@ -10,11 +10,18 @@ namespace SmenXsdToCs.T
         public void ProcessXsd()
         {
             var file = "../../UsagePointConfig.xsd";
-
             Assert.IsTrue(File.Exists(file));
-
             var code = Helper.ProcessXsd(file, "CIM");
+            Assert.IsNotNull(code);
 
+            file = "../../UsagePointConfig/wsdl/xsd/GetUsagePointConfigMessage.xsd";
+            Assert.IsTrue(File.Exists(file));
+            code = Helper.ProcessXsd(file, "CIM");
+            Assert.IsNotNull(code);
+
+            file = "../../UsagePointConfig/wsdl/xsd/UsagePointConfigMessage.xsd";
+            Assert.IsTrue(File.Exists(file));
+            code = Helper.ProcessXsd(file, "CIM");
             Assert.IsNotNull(code);
         }
     }
