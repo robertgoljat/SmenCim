@@ -17,6 +17,9 @@ namespace SmenXsdToCs
         [Option('o', "outputfile", Required = true, HelpText = "Output file (cs)!")]
         public string OutputFile { get; set; }
 
+        [Option('t', "type", Required = false, HelpText = "Service type (Get=1, Reply=2, Request=3!")]
+        public SrvcType ServiceType { get; set; }
+
         [Option('c', "continue", HelpText = "Skip 'Press any key to continue!'", Required = false, DefaultValue = false)]
         public bool Continue { get; set; }
 

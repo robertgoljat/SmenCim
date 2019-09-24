@@ -26,7 +26,7 @@ namespace SmenXsdToCs
                     xsdfile = getXsdfile(options.XsdFile, out deleteXsd);
 
                     Console.Write(" Creating CS file...");
-                    Processor.XsdToCs(xsdfile, targetnamespace, options.OutputFile);
+                    Processor.XsdToCs(xsdfile, targetnamespace, options.OutputFile, options.ServiceType);
                     Console.Write(" Created! {0}", options.OutputFile);
                     Console.WriteLine();
                 }

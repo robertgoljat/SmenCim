@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Schema;
@@ -162,6 +163,43 @@ namespace SmenXsdToCs
             }
 
             return ns;
+        }
+
+        public static IEnumerable<string> WildcardSearch(this IEnumerable<string> data, string q)
+        {
+            //string regexSearch = q
+            //    .Replace("*", ".+")
+            //    .Replace("%", ".+")
+            //    .Replace("#", "\\d")
+            //    .Replace("@", "[a-zA-Z]")
+            //    .Replace("?", "\\w");
+
+            //Regex regex = new Regex(regexSearch);
+
+            //return data
+            //    .Where(s => regex.IsMatch(s));
+
+            var regEx = "^" + Regex.Escape(q).Replace("\\*", ".*").Replace("\\?", ".") + "$"; 
+
+            return data.Where(item => Regex.IsMatch(item, regEx));
+        }
+        public static string NounFromWildcard(this string name, string q)
+        {
+            var splitted = q.Split('*', '%', '#', '@', '?').Where(_ => _ != "").ToList();
+
+            string str = name;
+
+            splitted
+                .ForEach(_ => 
+                {
+                    str = str.Replace(_, "");
+                });
+
+            return str;
+        }
+        public static string ToLowercaseFirst(this string data)
+        {
+            return data.Substring(0, 1).ToLower() + data.Substring(1);
         }
     }
 }

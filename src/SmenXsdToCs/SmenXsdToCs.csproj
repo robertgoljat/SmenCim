@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Processor.cs" />
