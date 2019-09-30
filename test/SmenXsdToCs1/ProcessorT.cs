@@ -37,7 +37,7 @@ namespace SmenXsdToCs.T
 
             //Processor.XsdToCs(fileDOut, "CIM", outp);
 
-            Processor.XsdToCs(fileD, "CIM", outp, 0);
+            Processor.XsdToCs(fileD, "CIM", outp, 0, false);
 
             Assert.IsTrue(File.Exists(outp));
 
@@ -53,7 +53,7 @@ namespace SmenXsdToCs.T
 
             Assert.IsFalse(File.Exists(outp));
 
-            Processor.XsdToCs(fileD, "CIM", outp, 0);
+            Processor.XsdToCs(fileD, "CIM", outp, 0, false);
 
             Assert.IsTrue(File.Exists(outp));
 
@@ -72,7 +72,7 @@ namespace SmenXsdToCs.T
 
             Assert.IsFalse(File.Exists(outp));
 
-            Processor.XsdToCs(fileD, "CIM", outp, 0);
+            Processor.XsdToCs(fileD, "CIM", outp, 0, false);
 
             Assert.IsTrue(File.Exists(outp));
 
@@ -92,7 +92,7 @@ namespace SmenXsdToCs.T
 
             Assert.IsFalse(File.Exists(outp));
 
-            Processor.XsdToCs(fileD, "CIM", outp, 0);
+            Processor.XsdToCs(fileD, "CIM", outp, 0, false);
 
             Assert.IsTrue(File.Exists(outp));
 
@@ -100,22 +100,29 @@ namespace SmenXsdToCs.T
         [TestMethod()]
         public void XsdToCs_UsagePointConfig()
         {
-            string fileS, fileD, outp;
+            string fileS, fileD, fileS2, fileD2, outp;
+
+            //fileS = "../../UsagePointConfig/wsdl/xsd/GetUsagePointConfigMessage.xsd";
+            //fileD = "GetUsagePointConfigMessage.xsd";
+            //outp = "GetUsagePointConfigMessage.cs";
+            //TransformToCs(fileS, fileD, outp, SrvcType.Get, true);
+
+            //fileS = "../../UsagePointConfig/wsdl/xsd/UsagePointConfigMessage.xsd";
+            //fileD = "UsagePointConfigMessage.xsd";
+            //outp = "ReplyUsagePointConfigMessage.cs";
+            //TransformToCs(fileS, fileD, outp, SrvcType.Reply, true);
+
+            //fileS = "../../UsagePointConfig/wsdl/xsd/UsagePointConfigMessage.xsd";
+            //fileD = "UsagePointConfigMessage.xsd";
+            //outp = "RequestUsagePointConfigMessage.cs";
+            //TransformToCs(fileS, fileD, outp, SrvcType.Request, true);
 
             fileS = "../../UsagePointConfig/wsdl/xsd/GetUsagePointConfigMessage.xsd";
             fileD = "GetUsagePointConfigMessage.xsd";
-            outp = "GetUsagePointConfigMessage.cs";
-            TransformToCs(fileS, fileD, outp, SrvcType.Get);
-
-            fileS = "../../UsagePointConfig/wsdl/xsd/UsagePointConfigMessage.xsd";
-            fileD = "UsagePointConfigMessage.xsd";
-            outp = "ReplyUsagePointConfigMessage.cs";
-            TransformToCs(fileS, fileD, outp, SrvcType.Reply);
-
-            fileS = "../../UsagePointConfig/wsdl/xsd/UsagePointConfigMessage.xsd";
-            fileD = "UsagePointConfigMessage.xsd";
-            outp = "RequestUsagePointConfigMessage.cs";
-            TransformToCs(fileS, fileD, outp, SrvcType.Request);
+            fileS2 = "../../UsagePointConfig/wsdl/xsd/UsagePointConfigMessage.xsd";
+            fileD2 = "UsagePointConfigMessage.xsd";
+            outp = "UsagePointConfigMessage.cs";
+            TransformToCsAll(fileS, fileD, fileS2, fileD2, outp);
 
         }
         [TestMethod()]
@@ -124,7 +131,7 @@ namespace SmenXsdToCs.T
             var fileS = "../../MeterReadSchedule/wsdl/xsd/GetMeterReadScheduleMessage.xsd";
             var fileD = "GetMeterReadScheduleMessage.xsd";
             var outp = "GetMeterReadScheduleMessage.cs";
-            TransformToCs(fileS, fileD, outp, 0);
+            TransformToCs(fileS, fileD, outp, 0, false);
 
             //fileS = "../../UsagePointConfig/wsdl/xsd/UsagePointConfigMessage.xsd";
             //fileD = "UsagePointConfigMessage.xsd";
@@ -132,7 +139,7 @@ namespace SmenXsdToCs.T
             //TransformToCs(fileS, fileD, outp);
         }
 
-        private static void TransformToCs(string fileS, string fileD, string outp, SrvcType type)
+        private static void TransformToCs(string fileS, string fileD, string outp, SrvcType type, bool withService)
         {
             if (File.Exists(fileD))
                 File.Delete(fileD);
@@ -144,8 +151,29 @@ namespace SmenXsdToCs.T
                 File.Copy(fileS, fileD);
 
             Assert.IsFalse(File.Exists(outp));
-            Processor.XsdToCs(fileD, "CIM", outp, type);
+            Processor.XsdToCs(fileD, "CIM", outp, type, withService);
             Assert.IsTrue(File.Exists(outp));
+        }
+        private static void TransformToCsAll(string fileS, string fileD, string fileS2, string fileD2, string outp)
+        {
+            if (File.Exists(fileD))
+                File.Delete(fileD);
+
+            if (File.Exists(fileD2))
+                File.Delete(fileD2);
+
+            if (File.Exists(outp))
+                File.Delete(outp);
+
+            if (!File.Exists(fileD))
+                File.Copy(fileS, fileD);
+
+            if (!File.Exists(fileD2))
+                File.Copy(fileS2, fileD2);
+
+            Assert.IsFalse(File.Exists(outp));
+            Processor.XsdToCsWithServices(fileD, fileD2, "CIM", outp);
+            Assert.IsTrue(File.Exists($"Get{outp}"));
         }
     }
 }

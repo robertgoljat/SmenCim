@@ -17,18 +17,30 @@ namespace SmenXsdToCs
 
             if (CommandLine.Parser.Default.ParseArguments(args, options))
             {
-                string targetnamespace, xsdfile;
-                string[] deleteXsd = null;
+                string targetnamespace, xsdfile, xsdfileget;
+                string[] deleteXsd = null, deleteXsdGet = null;
 
                 try
                 {
                     targetnamespace = options.Namespace != "" ? (options.Extension != "" ? $"{options.Namespace}.{options.Extension}" : options.Namespace) : "CIM";
-                    xsdfile = getXsdfile(options.XsdFile, out deleteXsd);
+                    
+                    if (options.XsdFileGet == "")
+                    {
+                        xsdfile = getXsdfile(options.XsdFile, out deleteXsd);
 
-                    Console.Write(" Creating CS file...");
-                    Processor.XsdToCs(xsdfile, targetnamespace, options.OutputFile, options.ServiceType);
-                    Console.Write(" Created! {0}", options.OutputFile);
-                    Console.WriteLine();
+                        Console.Write(" Creating CS file...");
+                        Processor.XsdToCs(xsdfile, targetnamespace, options.OutputFile, options.ServiceType, options.WithService);
+                        Console.Write(" Created! {0}", options.OutputFile);
+                        Console.WriteLine();
+                    }
+                    else
+                    {
+                        xsdfile = getXsdfile(options.XsdFile, out deleteXsd);
+                        xsdfileget = getXsdfile(options.XsdFileGet, out deleteXsdGet);
+
+                        Console.Write(" Creating CS files for all verbs...");
+                        Processor.XsdToCsWithServices(xsdfileget, xsdfile, targetnamespace, options.OutputFile);
+                    }
                 }
                 catch (Exception e1)
                 {
@@ -36,6 +48,7 @@ namespace SmenXsdToCs
                 }
 
                 deleteXsd?.ToList().ForEach(_ => File.Delete(_));
+                deleteXsdGet?.ToList().ForEach(_ => File.Delete(_));
 
                 Console.WriteLine();
 

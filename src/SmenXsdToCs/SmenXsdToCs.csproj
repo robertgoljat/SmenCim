@@ -67,6 +67,8 @@
     <Compile Include="Processor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Resources\Common.cs" />
+    <EmbeddedResource Include="Resources\Helper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

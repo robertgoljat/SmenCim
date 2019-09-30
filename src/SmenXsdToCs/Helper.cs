@@ -3,6 +3,7 @@ using System.CodeDom;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -125,23 +126,6 @@ namespace SmenXsdToCs
                 xsd.Compile(null);
             }
 
-            //var cleanedNamespaces = xsd.Namespaces
-            //    .ToArray()
-            //    .Select(_ =>
-            //    {
-            //        if (_.Namespace.EndsWith("#"))
-            //        {
-            //            return new XmlQualifiedName(_.Name, _.Namespace.TrimEnd('#'));
-            //        }
-            //        else
-            //        {
-            //            return _;
-            //        }
-            //    })
-            //    .ToArray();
-
-            //xsd.Namespaces = new XmlSerializerNamespaces(cleanedNamespaces);
-
             XmlSchemas schemas = new XmlSchemas();
             schemas.Add(xsd);
 
@@ -200,6 +184,48 @@ namespace SmenXsdToCs
         public static string ToLowercaseFirst(this string data)
         {
             return data.Substring(0, 1).ToLower() + data.Substring(1);
+        }
+
+        public static string ReadDataFromEmbeddedResource(this string resource)
+        {
+            Assembly _assembly;
+            StreamReader _textStreamReader;
+
+            try
+            {
+                _assembly = Assembly.GetExecutingAssembly();
+                _textStreamReader = new StreamReader(_assembly.GetManifestResourceStream($"SmenXsdToCs.Resources.{resource}"));
+
+                var data = _textStreamReader.ReadToEnd();
+
+                return data;
+            }
+            catch (Exception e1)
+            {
+                Console.WriteLine($" --> Error accessing resources! Message: {e1.Message}");
+
+                throw new Exception("ReadDataFromEmbeddedResource exception...");
+            }
+        }
+        public static string WriteDataToDisk(this string data, string filePath, bool overwrite)
+        {
+            try
+            {
+                if (File.Exists(filePath) && overwrite == false)
+                    return filePath;
+
+                var _textStreamWriter = new StreamWriter(filePath);
+                _textStreamWriter.Write(data);
+                _textStreamWriter.Flush();
+
+                return filePath;
+            }
+            catch (Exception e1)
+            {
+                Console.WriteLine($" --> Error witing data to disk! Message: {e1.Message}");
+
+                throw new Exception($"WriteDataToDisk exception... {e1.Message}");
+            }
         }
     }
 }

@@ -8,6 +8,9 @@ namespace SmenXsdToCs
         [Option('x', "xsdfile", Required = true, HelpText = "Xsd file!")]
         public string XsdFile { get; set; }
 
+        [Option('g', "xsdfileget", Required = false, HelpText = "Xsd file GET!")]
+        public string XsdFileGet { get; set; }
+
         [Option('n', "namespace", Required = false, DefaultValue = "CIM", HelpText = "Target namespace!")]
         public string Namespace { get; set; }
 
@@ -19,6 +22,9 @@ namespace SmenXsdToCs
 
         [Option('t', "type", Required = false, HelpText = "Service type (Get=1, Reply=2, Request=3!")]
         public SrvcType ServiceType { get; set; }
+
+        [Option('s', "withservice", Required = false, HelpText = "Cerates service class!")]
+        public bool WithService { get; set; }
 
         [Option('c', "continue", HelpText = "Skip 'Press any key to continue!'", Required = false, DefaultValue = false)]
         public bool Continue { get; set; }
