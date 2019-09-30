@@ -227,9 +227,9 @@ namespace SmenXsdToCs
                     .Add(CreateClassForService($"Get{noun}Service", $"IGet{noun}Service", noun, new List<Tuple<string, string, string>>()
                     {
                         new Tuple<string, string, string>($"GetHandler", $"Get{noun}Request", $"Get{noun}Response")
-                    }, new List<Tuple<string, string, string, string>>()
+                    }, new List<Tuple<string, string, string, string, string>>()
                     {
-                        new Tuple<string, string, string, string>($"Get{noun}", $"Get{noun}Request", "request", $"Get{noun}Response")
+                        new Tuple<string, string, string, string, string>($"Get{noun}", $"Get{noun}Request", "request", $"Get{noun}Response", "Get")
                     }));
 
                 #endregion
@@ -308,13 +308,13 @@ namespace SmenXsdToCs
                         new Tuple<string, string, string>($"CanceledHandler", $"Canceled{noun}Event", $"{noun}Response"),
                         new Tuple<string, string, string>($"ClosedHandler", $"Closed{noun}Event", $"{noun}Response"),
                         new Tuple<string, string, string>($"DeletedHandler", $"Deleted{noun}Event", $"{noun}Response")
-                    }, new List<Tuple<string, string, string, string>>()
+                    }, new List<Tuple<string, string, string, string, string>>()
                     {
-                        new Tuple<string, string, string, string>($"Created{noun}", $"Created{noun}Event", "request", $"Created{noun}Response"),
-                        new Tuple<string, string, string, string>($"Changed{noun}", $"Changed{noun}Event", "request", $"Changed{noun}Response"),
-                        new Tuple<string, string, string, string>($"Canceled{noun}", $"Canceled{noun}Event", "request", $"Canceled{noun}Response"),
-                        new Tuple<string, string, string, string>($"Closed{noun}", $"Closed{noun}Event", "request", $"Closed{noun}Response"),
-                        new Tuple<string, string, string, string>($"Deleted{noun}", $"Deleted{noun}Event", "request", $"Deleted{noun}Response")
+                        new Tuple<string, string, string, string, string>($"Created{noun}", $"Created{noun}Event", "request", $"{noun}Response", "Created"),
+                        new Tuple<string, string, string, string, string>($"Changed{noun}", $"Changed{noun}Event", "request", $"{noun}Response", "Changed"),
+                        new Tuple<string, string, string, string, string>($"Canceled{noun}", $"Canceled{noun}Event", "request", $"{noun}Response", "Canceled"),
+                        new Tuple<string, string, string, string, string>($"Closed{noun}", $"Closed{noun}Event", "request", $"{noun}Response", "Closed"),
+                        new Tuple<string, string, string, string, string>($"Deleted{noun}", $"Deleted{noun}Event", "request", $"{noun}Response", "Deleted")
                     }));
 
                 #endregion
@@ -383,28 +383,28 @@ namespace SmenXsdToCs
                 ns.Types
                     .Add(CreateInterface($"IRequest{noun}Service", new List<Tuple<string, string, string, string>>()
                     {
-                        new Tuple<string, string, string, string>($"Create{noun}", $"Create{noun}Request", "request", $"{noun}Response"),
-                        new Tuple<string, string, string, string>($"Change{noun}", $"Change{noun}Request", "request", $"{noun}Response"),
-                        new Tuple<string, string, string, string>($"Cancel{noun}", $"Cancel{noun}Request", "request", $"{noun}Response"),
-                        new Tuple<string, string, string, string>($"Close{noun}", $"Close{noun}Request", "request", $"{noun}Response"),
-                        new Tuple<string, string, string, string>($"Delete{noun}", $"Delete{noun}Request", "request", $"{noun}Response")
-                    }));
-
-                ns.Types
-                    .Add(CreateClassForService($"Request{noun}Service", $"IRequest{noun}Service", noun, new List<Tuple<string, string, string>>()
-                    {
-                        new Tuple<string, string, string>($"CreateHandler", $"Create{noun}Request", $"{noun}Response"),
-                        new Tuple<string, string, string>($"ChangeHandler", $"Change{noun}Request", $"{noun}Response"),
-                        new Tuple<string, string, string>($"CancelHandler", $"Cancel{noun}Request", $"{noun}Response"),
-                        new Tuple<string, string, string>($"CloseHandler", $"Close{noun}Request", $"{noun}Response"),
-                        new Tuple<string, string, string>($"DeleteHandler", $"Delete{noun}Request", $"{noun}Response")
-                    }, new List<Tuple<string, string, string, string>>()
-                    {
                         new Tuple<string, string, string, string>($"Create{noun}", $"Create{noun}Request", "request", $"Create{noun}Response"),
                         new Tuple<string, string, string, string>($"Change{noun}", $"Change{noun}Request", "request", $"Change{noun}Response"),
                         new Tuple<string, string, string, string>($"Cancel{noun}", $"Cancel{noun}Request", "request", $"Cancel{noun}Response"),
                         new Tuple<string, string, string, string>($"Close{noun}", $"Close{noun}Request", "request", $"Close{noun}Response"),
                         new Tuple<string, string, string, string>($"Delete{noun}", $"Delete{noun}Request", "request", $"Delete{noun}Response")
+                    }));
+
+                ns.Types
+                    .Add(CreateClassForService($"Request{noun}Service", $"IRequest{noun}Service", noun, new List<Tuple<string, string, string>>()
+                    {
+                        new Tuple<string, string, string>($"CreateHandler", $"Create{noun}Request", $"Create{noun}Response"),
+                        new Tuple<string, string, string>($"ChangeHandler", $"Change{noun}Request", $"Change{noun}Response"),
+                        new Tuple<string, string, string>($"CancelHandler", $"Cancel{noun}Request", $"Cancel{noun}Response"),
+                        new Tuple<string, string, string>($"CloseHandler", $"Close{noun}Request", $"Close{noun}Response"),
+                        new Tuple<string, string, string>($"DeleteHandler", $"Delete{noun}Request", $"Delete{noun}Response")
+                    }, new List<Tuple<string, string, string, string, string>>()
+                    {
+                        new Tuple<string, string, string, string, string>($"Create{noun}", $"Create{noun}Request", "request", $"Create{noun}Response", "Create"),
+                        new Tuple<string, string, string, string, string>($"Change{noun}", $"Change{noun}Request", "request", $"Change{noun}Response", "Change"),
+                        new Tuple<string, string, string, string, string>($"Cancel{noun}", $"Cancel{noun}Request", "request", $"Cancel{noun}Response", "Cancel"),
+                        new Tuple<string, string, string, string, string>($"Close{noun}", $"Close{noun}Request", "request", $"Close{noun}Response", "Close"),
+                        new Tuple<string, string, string, string, string>($"Delete{noun}", $"Delete{noun}Request", "request", $"Delete{noun}Response", "Delete")
                     }));
 
                 #endregion
@@ -443,7 +443,9 @@ namespace SmenXsdToCs
                         "System.Diagnostics.DebuggerStepThroughAttribute",
                         "System.ComponentModel.DesignerCategoryAttribute",
                         "System.Xml.Serialization.XmlTypeAttribute",
-                        "System.Xml.Serialization.XmlRootAttribute"
+                        "System.Xml.Serialization.XmlRootAttribute",
+                        "System.Xml.Serialization.XmlArrayAttribute",
+                        "System.Xml.Serialization.XmlArrayItemAttribute"
                     }).Add(new string[]
                     {
                         "DataContract"
@@ -459,7 +461,9 @@ namespace SmenXsdToCs
                                 "System.Xml.Serialization.XmlIgnoreAttribute",
                                 "System.Xml.Serialization.XmlAnyElementAttribute",
                                 "System.ComponentModel.DefaultValueAttribute",
-                                "System.Xml.Serialization.XmlAttributeAttribute"
+                                "System.Xml.Serialization.XmlAttributeAttribute",
+                                "System.Xml.Serialization.XmlArrayAttribute",
+                                "System.Xml.Serialization.XmlArrayItemAttribute"
                             });
 
                             if (!(member is CodeConstructor))
@@ -615,7 +619,7 @@ namespace SmenXsdToCs
 
             return getrequest;
         }
-        private static CodeTypeDeclaration CreateClassForService(string name, string interfc, string noun, List<Tuple<string, string, string>> functions, List<Tuple<string, string, string, string>> methods)
+        private static CodeTypeDeclaration CreateClassForService(string name, string interfc, string noun, List<Tuple<string, string, string>> functions, List<Tuple<string, string, string, string, string>> methods)
         {
             CodeTypeDeclaration srvclass = new CodeTypeDeclaration($"{name}")
             {
@@ -634,7 +638,7 @@ namespace SmenXsdToCs
 
             foreach (var meth in methods)
             {
-                srvclass.Members.Add(CreateClassMethod(meth.Item1, meth.Item2, meth.Item3, meth.Item4, noun, ""));
+                srvclass.Members.Add(CreateClassMethod(meth.Item1, meth.Item2, meth.Item3, meth.Item4, noun, meth.Item5, ""));
                 //srvclass.Members.Add(CreateClassMethod("GetComModuleConfig", "GetComModuleConfigRequest", "request", "GetComModuleConfigResponse", noun, ""));
             }
 
@@ -694,7 +698,7 @@ namespace SmenXsdToCs
 
             return field;
         }
-        private static CodeMemberMethod CreateClassMethod(string name, string inType, string inName, string outType, string noun, string attribute)
+        private static CodeMemberMethod CreateClassMethod(string name, string inType, string inName, string outType, string noun, string verb, string attribute)
         {
             CodeMemberMethod method = new CodeMemberMethod()
             {
@@ -712,12 +716,20 @@ namespace SmenXsdToCs
             CodeTryCatchFinallyStatement try1 = new CodeTryCatchFinallyStatement();
             CodeCatchClause catch1 = new CodeCatchClause("e1");
 
-            try1.TryStatements.Add(new CodeSnippetExpression($"{inName}.{inType}Message.IsHeaderOk(false, false, false)"));
-            try1.TryStatements.Add(new CodeSnippetExpression($"{inName}.{inType}Message.IsRequestOk(true, true, true, true)"));
-            try1.TryStatements.Add(new CodeSnippetStatement($""));
-            try1.TryStatements.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(new CodeThisReferenceExpression(), "GetHandler", new CodeExpression[] { new CodeArgumentReferenceExpression($"{inName}") })));
+            if (IsEvent(verb))
+            {
+                try1.TryStatements.Add(new CodeSnippetExpression($"{inName}.{ChangeinType(inType, verb)}Message.IsHeaderOk(false, false)"));
+            }
+            else
+            {
+                try1.TryStatements.Add(new CodeSnippetExpression($"{inName}.{ChangeinType(inType, verb)}Message.IsHeaderOk(false, false, false)"));
+                try1.TryStatements.Add(new CodeSnippetExpression($"{inName}.{ChangeinType(inType, verb)}Message.IsRequestOk(true, true, true, true)"));
+            }
             
-            catch1.Statements.Add(new CodeSnippetStatement(GetErrorReplyStatement(inType, outType, noun)));
+            try1.TryStatements.Add(new CodeSnippetStatement($""));
+            try1.TryStatements.Add(new CodeMethodReturnStatement(new CodeMethodInvokeExpression(new CodeThisReferenceExpression(), $"{verb}Handler", new CodeExpression[] { new CodeArgumentReferenceExpression($"{inName}") })));
+            
+            catch1.Statements.Add(new CodeSnippetStatement(GetErrorReplyStatement(inType, outType, noun, verb)));
 
             try1.CatchClauses.Add(catch1);
 
@@ -760,7 +772,7 @@ namespace SmenXsdToCs
 
             return method;
         }
-        static string GetErrorReplyStatement(string inType, string outType, string noun)
+        static string GetErrorReplyStatement(string inType, string outType, string noun, string verb)
         {
             var statement = @"
                 return new #GetComModuleConfigResponse()
@@ -784,9 +796,34 @@ namespace SmenXsdToCs
                 .Replace("#GetComModuleConfigResponse", $"{outType}")
                 .Replace("#ComModuleConfigResponseMessage", $"{noun}ResponseMessage")
                 .Replace("#ComModuleConfigResponseMessageType", $"{noun}ResponseMessageType")
-                .Replace("#GetComModuleConfigRequestMessage", $"Get{noun}RequestMessage")
+                .Replace("#GetComModuleConfigRequestMessage", ChangeReplace(noun, verb))     //.Replace("#GetComModuleConfigRequestMessage", IsEvent(verb) ? $"" : $"Get{noun}RequestMessage")
                 .Replace("#Get{noun}RequestMessage", $"{inType}Message");
             return statement;
+        }
+        static string ChangeinType(string inType, string verb)
+        {
+            if (verb.ToUpperInvariant() == "GET")
+                return inType;
+
+            return inType.Replace(verb, "");
+        }
+        static bool IsEvent(string verb)
+        {
+            string _verb = verb.ToUpperInvariant();
+
+            return _verb == "CREATED" || _verb == "CHANGED" || _verb == "CANCELED" || _verb == "CLOSED" || _verb == "DELETED";
+        }
+        static string ChangeReplace(string noun, string verb)
+        {
+            if (IsEvent(verb))
+            {
+                return $"{noun}EventMessage";
+            }
+
+            if (verb.ToUpperInvariant() == "GET")
+                return $"Get{noun}RequestMessage";
+
+            return $"{noun}RequestMessage";
         }
 
         private static List<string> toDeleteClasses = new List<string>()
