@@ -24,8 +24,9 @@ namespace SmenCimWsdl.T
             if (File.Exists(Path.Combine(outXsdPath, Path.GetFileName(filepath))))
                 File.Delete(Path.Combine(outXsdPath, Path.GetFileName(filepath)));
 
+            string targetNamespace = "";
             string noun2 = "";
-            var outXsdPath2 = converter.CreateArtifacts_Profile(filepath, outXsdPath, out noun2);
+            var outXsdPath2 = converter.CreateArtifacts_Profile(filepath, outXsdPath, out noun2, out targetNamespace);
 
             Assert.AreEqual(Path.Combine(outXsdPath, Path.GetFileName(filepath)), outXsdPath2);
             Assert.AreEqual("WorkRequests", noun2);
@@ -45,8 +46,9 @@ namespace SmenCimWsdl.T
             if (File.Exists(Path.Combine(outXsdPath, Path.GetFileName(filepath))))
                 File.Delete(Path.Combine(outXsdPath, Path.GetFileName(filepath)));
 
+            targetNamespace = "";
             noun2 = "";
-            outXsdPath2 = converter.CreateArtifacts_Profile(filepath, outXsdPath, out noun2);
+            outXsdPath2 = converter.CreateArtifacts_Profile(filepath, outXsdPath, out noun2, out targetNamespace);
 
             Assert.AreEqual(Path.Combine(outXsdPath, Path.GetFileName(filepath)), outXsdPath2);
             Assert.AreEqual("UsagePointConfig#", noun2);
@@ -67,8 +69,9 @@ namespace SmenCimWsdl.T
             if (File.Exists(Path.Combine(outXsdPath, Path.GetFileName(filepath))))
                 File.Delete(Path.Combine(outXsdPath, Path.GetFileName(filepath)));
 
+            targetNamespace = "";
             noun2 = "";
-            outXsdPath2 = converter.CreateArtifacts_Profile(filepath, outXsdPath, out noun2);
+            outXsdPath2 = converter.CreateArtifacts_Profile(filepath, outXsdPath, out noun2, out targetNamespace);
 
             Assert.AreEqual(Path.Combine(outXsdPath, Path.GetFileName(filepath)), outXsdPath2);
             Assert.AreEqual("MeterReadSchedule#", noun2);

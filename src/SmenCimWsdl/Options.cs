@@ -17,6 +17,9 @@ namespace SmenCimWsdl
         [Option('c', "continue", HelpText = "Skip 'Press any key to continue!'", Required = false, DefaultValue = false)]
         public bool Continue { get; set; }
 
+        [Option('t', "targetNamespace", HelpText = "Use profile's target namespace", Required = false, DefaultValue = false)]
+        public bool UseTargetNamespace { get; set; }
+
         //[Option(DefaultValue = 0, HelpText ="", Required = true)]
         //public long Offset { get; set; }
 

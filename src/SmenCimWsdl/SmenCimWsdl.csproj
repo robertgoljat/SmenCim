@@ -66,6 +66,16 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\SendReceiveReplyWSDL.wsdl" />
     <None Include="packages.config" />
+    <EmbeddedResource Include="Resources\GetReplyMessage2.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SendReceiveReplyRequestExecuteMessage2.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="raw\EndDeviceGroups.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

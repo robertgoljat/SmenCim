@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://langdale.com.au/2005/Message#" xmlns:a="http://langdale.com.au/2005/Message#" xmlns:m="http://iec.ch/TC57/2011/EndDeviceGroups#" xmlns:sawsdl="http://www.w3.org/ns/sawsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://iec.ch/TC57/2011/EndDeviceGroups#" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:element name="EndDeviceGroups" type="m:EndDeviceGroups"/>
+  <xs:complexType name="EndDeviceGroups">
+    <xs:sequence>
+      <xs:element name="DemandResponseProgram" type="m:DemandResponseProgram" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="EndDeviceGroup" type="m:EndDeviceGroup" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DemandResponseProgram" sawsdl:modelReference="http://iec.ch/TC57/2010/CIMschema-cim15#DemandResponseProgram">
+    <xs:sequence>
+      <xs:element name="mRID" type="xs:string" minOccurs="0" sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#IdentifiedObject.mRID"/>
+      <xs:element name="type" type="xs:string" minOccurs="0" sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#DemandResponseProgram.type"/>
+      <xs:element name="Names" type="m:Name" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#IdentifiedObject.Names"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EndDevice" sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schemacim15#EndDevice">
+    <xs:sequence>
+      <xs:element name="mRID" type="xs:string" minOccurs="0" sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#IdentifiedObject.mRID"/>
+      <xs:element name="Names" type="m:Name" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#IdentifiedObject.Names"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EndDeviceGroup" sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schemacim15#EndDeviceGroup">
+    <xs:sequence>
+      <xs:element name="mRID" type="xs:string" minOccurs="0" sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#IdentifiedObject.mRID"/>
+      <xs:element name="DemandResponsePrograms" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schemacim15#EndDeviceGroup.DemandResponsePrograms">
+        <xs:complexType sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schemacim15#DemandResponseProgram">
+          <xs:attribute name="ref" type="xs:string"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="EndDevices" type="m:EndDevice" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#EndDeviceGroup.EndDevices"/>
+      <xs:element name="Names" type="m:Name" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#IdentifiedObject.Names"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Name" sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#Name">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" sawsdl:modelReference="http://iec.ch/TC57/2010/CIMschema-cim15#Name.name"/>
+      <xs:element name="NameType" type="m:NameType" minOccurs="0" sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#Name.NameType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NameType" sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schemacim15#NameType">
+    <xs:sequence>
+      <xs:element name="description" type="xs:string" minOccurs="0"
+      sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#NameType.description"/>
+      <xs:element name="name" type="xs:string" sawsdl:modelReference="http://iec.ch/TC57/2010/CIMschema-cim15#NameType.name"/>
+      <xs:element name="NameTypeAuthority" type="m:NameTypeAuthority" minOccurs="0" sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#NameType.NameTypeAuthority"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NameTypeAuthority" sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schemacim15#NameTypeAuthority">
+    <xs:sequence>
+      <xs:element name="description" type="xs:string" minOccurs="0" sawsdl:modelReference="http://iec.ch/TC57/2010/CIM-schema-cim15#NameTypeAuthority.description"/>
+      <xs:element name="name" type="xs:string" sawsdl:modelReference="http://iec.ch/TC57/2010/CIMschema-cim15#NameTypeAuthority.name"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

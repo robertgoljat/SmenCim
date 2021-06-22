@@ -37,6 +37,7 @@ namespace SmenCimWsdl
                     Console.WriteLine($"Verb: {wsdlVerb}");
                     Console.WriteLine($"Noun: {convert.GetNoun(options.NounFile)} File: '{options.NounFile}'");
                     Console.WriteLine($"Path: '{outPath}' Xsd path: '{outXsdPath}'");
+                    Console.WriteLine($"UseTargetNamespace: {(options.UseTargetNamespace ? "Yes" : "No")}");
                     Console.WriteLine();
                     Console.WriteLine();
 
@@ -44,15 +45,25 @@ namespace SmenCimWsdl
                     Console.Write(" Created! {0}", convert.CreateArtifacts_Message(outXsdPath));
                     Console.WriteLine();
 
+                    string targetNamespace = "";
                     string noun2 = "";
 
                     Console.Write(" 2. Creating profie...");
-                    Console.Write(" Created! {0}", convert.CreateArtifacts_Profile(options.NounFile, outXsdPath, out noun2));
+                    Console.Write(" Created! {0}", convert.CreateArtifacts_Profile(options.NounFile, outXsdPath, out noun2, out targetNamespace));
                     Console.WriteLine();
 
-                    Console.Write(" 3. Creating noun file...");
-                    Console.Write(" Created! {0}", convert.CreateArtifacts_NounMessage(wsdlVerb, noun, noun2, outXsdPath));
-                    Console.WriteLine();
+                    if (!options.UseTargetNamespace)
+                    {
+                        Console.Write(" 3. Creating noun file...");
+                        Console.Write(" Created! {0}", convert.CreateArtifacts_NounMessage(wsdlVerb, noun, noun2, outXsdPath));
+                        Console.WriteLine(); 
+                    }
+                    else
+                    {
+                        Console.Write(" 3. Creating noun file (with target namespace)...");
+                        Console.Write(" Created! {0}", convert.CreateArtifacts_NounMessage(wsdlVerb, noun, noun2, outXsdPath, targetNamespace));
+                        Console.WriteLine();
+                    }
 
                     Console.Write(" 4. Creating WSDL...");
                     Console.Write(" Created! {0}", convert.CreateArtifacts_Wsdl(wsdlVerb, noun, outPath));

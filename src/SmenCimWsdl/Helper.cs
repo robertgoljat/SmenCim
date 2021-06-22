@@ -126,6 +126,20 @@ namespace SmenCimWsdl
 
             return data;
         }
+        public static string ReplaceInformationObjectName(this string data, string noun, string noun2, string targetNamespace)
+        {
+            if (noun == noun2)
+                data = data
+                    .Replace(@"{Information_Object_Name}#", noun)
+                    .Replace(@"{Information_Object_Name}", noun)
+                    .Replace(@"{Information_Object_NameSpace}", targetNamespace);
+            else
+                data = data
+                    .Replace(@"{Information_Object_Name}", noun)
+                    .Replace(@"{Information_Object_NameSpace}", targetNamespace);
+
+            return data;
+        }
 
         public static string GetProfilesNamespace(this string data)
         {

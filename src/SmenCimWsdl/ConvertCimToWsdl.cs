@@ -49,9 +49,10 @@ namespace SmenCimWsdl
             return outPath;
         }
 
-        public string CreateArtifacts_Profile(string nounFile, string outXsdPath, out string noun2)
+        public string CreateArtifacts_Profile(string nounFile, string outXsdPath, out string noun2, out string targetNamespace)
         {
             noun2 = "";
+            targetNamespace = "";
 
             if (!File.Exists(nounFile))
                 throw new Exception($"Noun file '{nounFile}' doesn't exist!");
@@ -65,7 +66,8 @@ namespace SmenCimWsdl
 
             data = data.ReplaceEATypes();
 
-            noun2 = data.GetTargetNamespace().GetNounFromTargetNamespace();
+            targetNamespace = data.GetTargetNamespace();
+            noun2 = targetNamespace.GetNounFromTargetNamespace();
 
             return data.WriteDataToDisk(Path.Combine(outXsdPath, Path.GetFileName(nounFile)));
         }
@@ -101,6 +103,33 @@ namespace SmenCimWsdl
                     throw new Exception($"Wrong verb '{verb}'");
 
                 data = data.ReplaceInformationObjectName(noun, noun2);
+
+                return data.WriteDataToDisk(Path.Combine(outPath, $"{nameVerb}{noun}Message.xsd"));
+            }
+            catch (Exception e1)
+            {
+                Console.WriteLine($" --> Error accessing resources! Message: {e1.Message}");
+            }
+
+            return "";
+        }
+        public string CreateArtifacts_NounMessage(string verb, string noun, string noun2, string outPath, string targetNamespace)
+        {
+            try
+            {
+                string data = "", nameVerb = "";
+
+                if (verb == "Get" || verb == "Reply")
+                {
+                    data = "GetReplyMessage2.xsd".ReadDataFromEmbeddedResource();
+                    nameVerb = "Get";
+                }
+                else if (verb == "Send" || verb == "Receive" || verb == "Request" || verb == "Execute")
+                    data = "SendReceiveReplyRequestExecuteMessage2.xsd".ReadDataFromEmbeddedResource();
+                else
+                    throw new Exception($"Wrong verb '{verb}'");
+
+                data = data.ReplaceInformationObjectName(noun, noun2, targetNamespace);
 
                 return data.WriteDataToDisk(Path.Combine(outPath, $"{nameVerb}{noun}Message.xsd"));
             }
